@@ -1,0 +1,19 @@
+\Title{Co zrobić, żeby się nie narobić}
+\Author{Łukasz Dróżdż}
+
+\Subject{Kilka wskazówek stosowania narzędzi informatycznych}
+\Publisher{Politechnika Śląska; Wydział Elektryczny; Katedra Metrologii, Elektroniki i Automatyki}
+
+\PublicationType{book}
+\Language{pl}
+
+\Copyright{Dokument dostępny jest na warunkach licencji CC BY-SA 4.0. Dozwolone jest rozpowszechnianie, modyfikowanie, dostosowywanie niniejszej pracy i tworzenie materiałów na dowolnym nośniku lub w dowolnym formacie, również w zastosowaniach komercyjnych, pod warunkiem wskazania twórcy oryginalnej pracy oraz zachowania identycznych warunków licencji na dzieło pochodne.}
+\CopyrightURL{https://creativecommons.org/licenses/by-sa/4.0/}
+
+\Keywords{%
+	system składu LaTeX\sep%
+	tworzenie dokumentów\sep%
+	badania naukowe\sep%
+	obróbka danych\sep%
+	tworzenie wykresów%
+}
