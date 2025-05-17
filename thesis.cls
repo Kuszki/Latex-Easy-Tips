@@ -43,6 +43,7 @@
 \RequirePackage{comment}
 \RequirePackage{minted}
 \RequirePackage{xpatch}
+\RequirePackage{ifthen}
 \RequirePackage{xurl}
 
 \DeclareSIUnit[quantity-product=-]\bitOwych{bitowych}
@@ -135,10 +136,15 @@
 \setlist{leftmargin = \parindent}
 \setenumerate{noitemsep}
 \setitemize{noitemsep}
-
 \fancyhead{}
-\fancyhead[EL]{\nouppercase{\small\leftmark}}
-\fancyhead[OR]{\nouppercase{Wersja \gitVer{} z \@date}}
+
+\ifthenelse{\boolean{@twoside}}{
+	\fancyhead[EL]{\nouppercase{\small\leftmark}}
+	\fancyhead[OR]{\nouppercase{Wersja \gitVer{} z \@date}}
+}{
+	\fancyhead[OL]{\nouppercase{\small\leftmark}}
+	\fancyhead[OR]{\nouppercase{Wersja \gitVer{} z \@date}}
+}
 
 \def\maketitle
 {
