@@ -1,0 +1,86 @@
+\chapter{Automatyzacja pracy}
+
+Znając podstawy \LaTeX{} można gruntownie przyspieszyć proces powstawania manuskryptu. Automatyczne podpisy, generowanie bibliografii i inne udogodnienia powodują, że nie trzeba poświęcać cennego czasu na mozolne i uciążliwe czynności. Warto zatem iść o krok dalej i jeszcze bardziej usprawnić omawiany proces.
+
+W tym celu należy zaplanować metodologię kolejnych etapów pracy, począwszy od sposobu wykonywania symulacji, archiwizowania wyników badań, sporządzania wykresów oraz tabel. W kolejnych podrozdziałach zawarto pewne propozycje, dzięki którym kolejne etapy przebiegać będą automatycznie i płynnie, po czym odpowiednie dane \enquote{wprowadzą się same} do manuskryptu.
+
+\section{Wykonywanie symulacji}
+
+Standardowo do wykonywania różnego rodzaju symulacji stosować można program \texttt{MATLAB}. Niniejsza praca miała jednak zachęcać użytkowników do stosowania wolnego oprogramowania, stąd w dalszej części stosowany będzie program \texttt{GNU Octave}. Program ten zapewnia w zasadzie te same możliwość, oferuje podobną prędkość działania, przy czym jest dostępny na warunkach licencji \href{GNU GPLv3}{https://www.gnu.org/licenses/gpl-3.0.html}. Dodatkowo dla proponowanego programu dostępne są dodatkowe biblioteki, dostępne do pobrania z \href{https://octave.sourceforge.io/packages.php}{repozytorium}.
+
+Istotne podczas wykonywania czasochłonnych symulacji metodą \enquote{Monte Carlo}~\cite{jcgm_montecarlo} jest sporządzenie skryptu w taki sposób, aby wykorzystywał on wszystkie procesory dostępne w komputerze. Stosować w tym celu można bibliotekę \texttt{parallel}, która umożliwia wykonanie wybranej funkcji dla zadanego zestawu parametrów w ten sposób, że jest ona uruchamiana na wszystkich dostępnych procesorach jednocześnie.
+
+Wyobraźmy sobie scenariusz, w którym metodą \enquote{Monte Carlo} wyznaczana jest niepewność wielkości wyjściowej przetwornika analogowo-cyfrowego, który przetwarza wielkości wejściowe $x \in \mathbb{R}$. Załóżmy, że wielkość wyjściowa tego przetwornika, wyrażona w jednostce wielkości wejściowej, opisana jest równaniem~\cite{jakubiec_error}:
+\begin{equation}
+\breve{u}_{AC} \emb{x} = q f_{AC} \emb{x} = q \left\lfloor \frac{x}{q} + \num{0.5} \right\rfloor \label{eq:adc_output},
+\end{equation}
+gdzie $q$ jest wartością kwantu, a symbolem $\lfloor a \rfloor$ oznaczono część całkowitą liczby $a \in \mathbb{R}$. Załóżmy dodatkowo, że omawianym przetwornik przetwarza wielkości wejściowe $x \in \interval{-5}{5}~\unit{V}$ oraz $x \sim \mathcal{U}(-5, 5)~\unit{V}$, a dodatkowo wielkość ta zakłócona jest szumem białym o stałej gęstości mocy i normalnym rozkładzie realizacji wartości~\cite{kuo_white, grimmett_probability}.
+
+Omawiany eksperyment będzie zatem polegać na wyznaczeniu \num{100000} wartości realizacji wielkości wyjściowej $\breve{u}_{AC}(x)$ dla kolejnych wartości realizacji sygnału szumu oraz wielkości wejściowej $x$, zgodnych z zadanym rozkładem. Kod źródłowy realizujący przedstawiony eksperyment zawarto w listingu~\ref{lst:octave_adcsingle}. Funkcja \verb|get_uncertainty| pochodzi z projektu \cite{auth_fwtutils}, dostępnego na platformie \texttt{GitHub} na warunkach licencji \href{https://www.gnu.org/licenses/gpl-3.0.html}{GNU GPLv3} i służy do wyznaczenia wartości niepewności rozszerzonej dla zadanego poziomu ufności~\cite{jcgm_guide}.
+
+\begin{listing}[htb]
+\inputminted{octave}{skrypty/octave_adcsingle.m}
+\makecaption{lst:octave_adcsingle}{Kod źródłowy programu \texttt{GNU Octave} realizujący eksperyment}
+\end{listing}
+
+Można zauważyć, że operacje przeprowadzane dla pojedynczej iteracji pętli mogą być wykonywane jednocześnie, jeżeli w systemie zainstalowanych jest kilka procesorów. W tym celu należy jednak zmodyfikować kod przedstawiony w listingu~\ref{lst:octave_adcsingle} w ten sposób, że treść pętli umieścić należy w odrębnej funkcji, a następnie ową funkcję wywołać należy stosując odpowiednio rozwiązanie \verb|pararrayfun| zdefiniowane w bibliotece \texttt{parallel}.
+
+Kod źródłowy omawianej funkcji przedstawiono w listingu~\ref{lst:get_adc_error} natomiast zmodyfikowany kod programu przedstawiono w listingu~\ref{lst:octave_adcparallel}. Funkcja \verb|pararrayfun| dostępna jest po załadowaniu biblioteki \texttt{parallel} za pomocą polecenia \mintinline{octave}{pkg load parallel}. Parametr \verb|nproc| oznacza dostępną liczbę procesorów logicznych, natomiast szczegóły stosowania omawianego rozwiązania opisano w jego \href{https://gnu-octave.github.io/packages/parallel/}{dokumentacji}.
+
+\begin{listing}[htb]
+\inputminted{octave}{skrypty/get_adc_error.m}
+\makecaption{lst:get_adc_error}{Kod źródłowy programu \texttt{GNU Octave} wyznaczający wartość realizacji sygnału błędu}
+\end{listing}
+
+\begin{listing}[htb]
+\inputminted{octave}{skrypty/octave_adcparallel.m}
+\makecaption{lst:octave_adcparallel}{Kod źródłowy programu \texttt{GNU Octave} realizujący eksperyment równolegle}
+\end{listing}
+
+Należy w tym miejscu podkreślić, że przedstawiony przykład został przedstawiony tylko ze względu na wskazanie, w jaki sposób podejść do zadania rozbicia procesu obliczeń na wiele wątków. Przedstawiony przykład jest bardzo prosty, stąd w jego przypadku narzut związany z uruchomieniem obliczeń jest na tyle duży, że paradoksalnie wersja niezrównoleglona działać będzie szybciej od tej zrównoleglonej. Podobne wnioski wyciągnięto również w pracy~\cite{auth_parallel}, która dotyczyła zrównoleglania obliczeń stosowanych podczas implementacji rozmytych algorytmów sterowania. Prawidłowa implementacja omawianego algorytmu wykorzystuje wektoryzacje i została przedstawiona w listingu~\ref{lst:octave_adcoptimal}. Prawidłowo zrównoleglony algorytm pozwala na skrócenie czasu obliczeń proporcjonalnie do posiadanej liczby procesorów fizycznych w systemie.
+
+\begin{listing}[htb]
+\inputminted{octave}{skrypty/octave_adcoptimal.m}
+\makecaption{lst:octave_adcoptimal}{Optymalny kod źródłowy programu \texttt{GNU Octave} realizujący eksperyment}
+\end{listing}
+
+Kolejnym istotnym aspektem podczas prowadzenia badań jest możliwość parametryzacji wykonywanych symulacji. Załóżmy, że omawiany eksperyment należy powtórzyć dla różnych parametrów: wariancji szumu, liczby kwantów przetwornika oraz zakresu wartości wielkości wejściowych. Ręczne uruchamianie skryptu dla zadanego zestawu parametrów byłoby bardzo czasochłonne i nieefektywne. Należy zatem zastosować odpowiednie rozwiązanie, które zautomatyzuje omawiany proces.
+
+Dostępny dla systemów operacyjnych z rodziny \texttt{GNU/Linux} program \texttt{parallel} stanowi w tym przypadku doskonałe rozwiązanie. Program ten ma możliwość między innymi wykonać zadane polecenie, w tym przypadku uruchomienie skryptu realizującego eksperyment, dla zadanego zestawu parametrów wczytanego z pliku. Co więcej, domyślnie istnieje możliwość równoległego uruchomienia wielu zadań jednocześnie, co dodatkowo oznacza, że nie ma potrzeby zrównoleglania skryptów przeznaczonych do uruchamiania w omawianych okolicznościach.
+
+Aby zastosować proponowane rozwiązanie należy w pierwszej kolejności zmodyfikować nieco zaproponowany wcześniej skrypt. Proponuje się w tym celu wprowadzenie modyfikacji do kodu przedstawionego w listingu~\ref{lst:octave_adcoptimal} w ten sposób, aby kod ten zamienić na możliwą do wywołania funkcję. Zmodyfikowany skrypt przedstawiono w listingu~\ref{lst:octave_adcbatch}. Ostatnia linijka skryptu ma za zadanie wydruk wartości parametrów oraz wyniku eksperymentu. Dane te będą później zapisywane do pliku z wynikami, przy czym szczegóły omówiono w kolejnym podrozdziale.
+
+\begin{listing}[htb]
+\inputminted{octave}{skrypty/octave_adcbatch.m}
+\makecaption{lst:octave_adcbatch}{Skrypr przeznaczony do uruchamiania wsadowego}
+\end{listing}
+
+Dodatkowo należy również przygotować zestaw parametrów dla przeprowadzanego eksperymentu i zapisać go do pliku tekstowego. Zestaw ten zdefiniować można samodzielnie, stosując w tym celu klasyczny arkusz kalkulacyjny, za pomocą odpowiedniego skryptu lub posiłkując się \texttt{AI}. Przykład pliku z zestawem parametrów dla omawianego eksperymentu przedstawiono w listingu~\ref{lst:parallel_input}. Dla przedstawionego przykładu pierwszy wiersz zawiera nagłówki kolumn, stąd niedopuszczalne jest stosowanie w nim spacji. Kolejne wiersze zawierają wartości wskazanych parametrów, przy czym możliwe jest stosowanie dowolnego formatu liczb.
+
+\begin{listing}[htb]
+\inputminted{text}{skrypty/parallel_input.csv}
+\makecaption{lst:parallel_input}{Zestaw parametrów do wykonania eksperymentu}
+\end{listing}
+
+Ostatnim krokiem jest uruchomienie przygotowanego skryptu~\ref{lst:octave_adcbatch} dla zestawu parametrów zapisanego do sporządzonego wcześniej pliku~\ref{lst:parallel_input}. Należy w tym celu wywołać program \texttt{parallel} z parametrami wymienionymi w listingu~\ref{lst:parallel_adcrun}. Wywołanie omawianego programu przedstawiono w listingu~\ref{lst:parallel_adcrun}.
+
+\begin{listing}[htb]
+\inputminted{bash}{skrypty/parallel_adcrun.sh}
+\makecaption{lst:parallel_adcrun}{Skrypt przeznaczony do uruchamiania wsadowego}
+\end{listing}
+ 
+Zaproponowane rozwiązanie umożliwia automatyczną kontrolę procesu uruchamiania kolejnych wariantów eksperymentu. Obliczenia są prowadzone z wykorzystaniem wszystkich dostępnych procesorów, nawet jeżeli dla oryginalnego skryptu nie wprowadzono zrównoleglenia -- każdy wariant eksperymentu uruchamiany jest w osobnym procesie w ten sposób, że nieprzerwanie uruchomione jest tyle procesów, ile dostępnych jest procesorów logicznych. Po wykonaniu pojedynczego wariantu eksperymentu uruchamiany jest kolejny, aż do zakończenia realizacji wszystkich wariantów. Wyniki eksperymentów wraz z zadanymi parametrami są zapisywane zbiorczo do wskazanego pliku. 
+ 
+\section{Archiwizacja wyników badań}
+
+Aby umożliwić automatyczne przetwarzanie wyników eksperymentów należy odpowiednio archiwizować pozyskane dane. Najprostszym, a jednocześnie najbardziej przystępnym formatem jest zwyczajny plik tekstowy, zorganizowany na wzór pliku przedstawionego w ramach listingu~\ref{lst:parallel_input}. Plik ten opcjonalnie zawierać może nagłówek oraz komentarze, przy czym możliwości te zależą od przeznaczenia pliku -- przykładowo program \texttt{parallel} nie obsługuje komentarzy, natomiast oferuje opcjonalną obsługę nagłówka. Wskazany format zakłada stałą liczbę kolumn zawierających wartości kolejnych wielkości, które oddzielone są separatorem, gdzie najczęściej jest to średnik lub tabulator. Kolejne rekordy umieszczane są w następujących po sobie wierszach.
+
+Należy zaznaczyć, że standardowy arkusz kalkulacyjny umożliwia podgląd, edycję oraz wykonywanie operacji na omawianym formacie pliku. Ograniczenie stanowi natomiast możliwość sporządzania w nim wykresów oraz formuł -- te elementy nie zostaną zapisane po zamknięciu pliku, stąd aby je zachować należy zapisać dane w natywnym formacie dla stosowanego arkusza kalkulacyjnego. Poza arkuszem kalkulacyjnym dane mogą być bezproblemowo wczytane przez program \texttt{GNU Octave}, \texttt{gnuplot}, \texttt{parallel} oraz inne programy, co przedstawiono w kolejnych sekcjach.
+
+
+
+\section{Wstawianie wyników do tabel}
+
+\section{Tworzenie eleganckich wykresów}
+
+\section{Uwagi końcowe}

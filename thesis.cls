@@ -130,6 +130,7 @@
 \counterwithin{figure}{chapter}
 \counterwithin{table}{chapter}
 \counterwithin{equation}{chapter}
+\counterwithin{listing}{chapter}
 
 \setlist{leftmargin = \parindent}
 \setenumerate{noitemsep}
@@ -182,7 +183,7 @@
 {
 	\pagenumbering{roman}
 	\pagestyle{plain}
-	\hugelinespacing
+	\normallinespacing
 	\tableofcontents
 	\normallinespacing
 }
