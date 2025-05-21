@@ -2,11 +2,11 @@
 
 Znając podstawy \LaTeX{} można gruntownie przyspieszyć proces powstawania manuskryptu. Automatyczne podpisy, generowanie bibliografii i inne udogodnienia powodują, że nie trzeba poświęcać cennego czasu na mozolne i uciążliwe czynności. Warto zatem iść o krok dalej i jeszcze bardziej usprawnić omawiany proces.
 
-W tym celu należy zaplanować metodologię kolejnych etapów pracy, począwszy od sposobu wykonywania symulacji, archiwizowania wyników badań, sporządzania wykresów oraz tabel. W kolejnych podrozdziałach zawarto pewne propozycje, dzięki którym kolejne etapy przebiegać będą automatycznie i płynnie, po czym odpowiednie dane \enquote{wprowadzą się same} do manuskryptu.
+Aby osiągnąć omawianą automatyzację należy w pierwszej kolejności zaplanować metodologię dla poszczególnych etapów pracy, w tym sposobu wykonywania symulacji, archiwizowania wyników badań, sporządzania wykresów oraz tabel. W kolejnych podrozdziałach zawarto pewne propozycje, dzięki którym omawiane etapy tworzenia manuskryptu przebiegać będą automatycznie, przy czym odpowiednie dane wczytywanie będą do treści dokumentu z zewnętrznych źródeł i formatowane w ustalony sposób.
 
 \section{Wykonywanie symulacji}
 
-Standardowo do wykonywania różnego rodzaju symulacji stosować można program \texttt{MATLAB}. Niniejsza praca miała jednak zachęcać użytkowników do stosowania wolnego oprogramowania, stąd w dalszej części stosowany będzie program \texttt{GNU Octave}. Program ten zapewnia w zasadzie te same możliwość, oferuje podobną prędkość działania, przy czym jest dostępny na warunkach licencji \href{GNU GPLv3}{https://www.gnu.org/licenses/gpl-3.0.html}. Dodatkowo dla proponowanego programu dostępne są dodatkowe biblioteki, dostępne do pobrania z \href{https://octave.sourceforge.io/packages.php}{repozytorium}.
+Standardowo do wykonywania różnego rodzaju symulacji stosować można program \texttt{MATLAB}. Niniejsza praca miała jednak zachęcać użytkowników do stosowania wolnego oprogramowania, stąd w dalszej części stosowany będzie program \texttt{GNU Octave}. Program ten zapewnia w zasadzie te same możliwość, oferuje podobną prędkość działania, przy czym jest dostępny na warunkach licencji \href{https://www.gnu.org/licenses/gpl-3.0.html}{GNU GPLv3}. Dodatkowo dla proponowanego programu dostępne są dodatkowe biblioteki, dostępne do pobrania z \href{https://octave.sourceforge.io/packages.php}{repozytorium}.
 
 Istotne podczas wykonywania czasochłonnych symulacji metodą \enquote{Monte Carlo}~\cite{jcgm_montecarlo} jest sporządzenie skryptu w taki sposób, aby wykorzystywał on wszystkie procesory dostępne w komputerze. Stosować w tym celu można bibliotekę \texttt{parallel}, która umożliwia wykonanie wybranej funkcji dla zadanego zestawu parametrów w ten sposób, że jest ona uruchamiana na wszystkich dostępnych procesorach jednocześnie.
 
@@ -27,12 +27,12 @@ Można zauważyć, że operacje przeprowadzane dla pojedynczej iteracji pętli m
 
 Kod źródłowy omawianej funkcji przedstawiono w listingu~\ref{lst:get_adc_error} natomiast zmodyfikowany kod programu przedstawiono w listingu~\ref{lst:octave_adcparallel}. Funkcja \verb|pararrayfun| dostępna jest po załadowaniu biblioteki \texttt{parallel} za pomocą polecenia \mintinline{octave}{pkg load parallel}. Parametr \verb|nproc| oznacza dostępną liczbę procesorów logicznych, natomiast szczegóły stosowania omawianego rozwiązania opisano w jego \href{https://gnu-octave.github.io/packages/parallel/}{dokumentacji}.
 
-\begin{listing}[htb]
+\begin{listing}[hbt]
 \inputminted{octave}{skrypty/get_adc_error.m}
 \makecaption{lst:get_adc_error}{Kod źródłowy programu \texttt{GNU Octave} wyznaczający wartość realizacji sygnału błędu}
 \end{listing}
 
-\begin{listing}[htb]
+\begin{listing}[hbt]
 \inputminted{octave}{skrypty/octave_adcparallel.m}
 \makecaption{lst:octave_adcparallel}{Kod źródłowy programu \texttt{GNU Octave} realizujący eksperyment równolegle}
 \end{listing}
@@ -48,28 +48,30 @@ Kolejnym istotnym aspektem podczas prowadzenia badań jest możliwość parametr
 
 Dostępny dla systemów operacyjnych z rodziny \texttt{GNU/Linux} program \texttt{parallel} stanowi w tym przypadku doskonałe rozwiązanie. Program ten ma możliwość między innymi wykonać zadane polecenie, w tym przypadku uruchomienie skryptu realizującego eksperyment, dla zadanego zestawu parametrów wczytanego z pliku. Co więcej, domyślnie istnieje możliwość równoległego uruchomienia wielu zadań jednocześnie, co dodatkowo oznacza, że nie ma potrzeby zrównoleglania skryptów przeznaczonych do uruchamiania w omawianych okolicznościach.
 
-Aby zastosować proponowane rozwiązanie należy w pierwszej kolejności zmodyfikować nieco zaproponowany wcześniej skrypt. Proponuje się w tym celu wprowadzenie modyfikacji do kodu przedstawionego w listingu~\ref{lst:octave_adcoptimal} w ten sposób, aby kod ten zamienić na możliwą do wywołania funkcję. Zmodyfikowany skrypt przedstawiono w listingu~\ref{lst:octave_adcbatch}. Ostatnia linijka skryptu ma za zadanie wydruk wartości parametrów oraz wyniku eksperymentu. Dane te będą później zapisywane do pliku z wynikami, przy czym szczegóły omówiono w kolejnym podrozdziale.
+Aby zastosować proponowane rozwiązanie należy w pierwszej kolejności zmodyfikować nieco zaproponowany wcześniej skrypt. Proponuje się w tym celu wprowadzenie modyfikacji do kodu przedstawionego w listingu~\ref{lst:octave_adcoptimal} w ten sposób, aby kod ten zamienić na możliwą do wywołania funkcję. Zmodyfikowany skrypt przedstawiono w listingu~\ref{lst:octave_adcbatch}. Ostatnia część skryptu ma za zadanie wydruk wartości parametrów oraz wyniku eksperymentu oraz zapis wartości realizacji sygnału błędu do osobnego pliku. Wydrukowane wyniki będą później zapisywane do zbiorczego pliku z wynikami, natomiast wartości realizacji sygnału błędu posłużą do wykreślenia histogramu.
 
 \begin{listing}[htb]
 \inputminted{octave}{skrypty/octave_adcbatch.m}
-\makecaption{lst:octave_adcbatch}{Skrypr przeznaczony do uruchamiania wsadowego}
+\makecaption{lst:octave_adcbatch}{Skrypt programu \texttt{GNU Octave} przeznaczony do uruchamiania wsadowego}
 \end{listing}
 
-Dodatkowo należy również przygotować zestaw parametrów dla przeprowadzanego eksperymentu i zapisać go do pliku tekstowego. Zestaw ten zdefiniować można samodzielnie, stosując w tym celu klasyczny arkusz kalkulacyjny, za pomocą odpowiedniego skryptu lub posiłkując się \texttt{AI}. Przykład pliku z zestawem parametrów dla omawianego eksperymentu przedstawiono w listingu~\ref{lst:parallel_input}. Dla przedstawionego przykładu pierwszy wiersz zawiera nagłówki kolumn, stąd niedopuszczalne jest stosowanie w nim spacji. Kolejne wiersze zawierają wartości wskazanych parametrów, przy czym możliwe jest stosowanie dowolnego formatu liczb.
+Poza przedstawionym powyżej skryptem należy również przygotować zestaw parametrów dla przeprowadzanego eksperymentu i zapisać go do pliku tekstowego. Zestaw ten zdefiniować można na wiele sposobów: stosując klasyczny arkusz kalkulacyjny, za pomocą odpowiedniego skryptu, czy też posiłkując się \texttt{AI}. Przykład pliku z zestawem parametrów dla omawianego eksperymentu przedstawiono w listingu~\ref{lst:parallel_input}. Dla przedstawionego przykładu pierwszy wiersz zawiera nagłówki kolumn, stąd niedopuszczalne jest stosowanie w nim spacji. Kolejne wiersze zawierają wartości wskazanych parametrów, przy czym możliwe jest stosowanie dowolnego formatu liczb. Każda linijka wskazanego pliku odnosi się do pojedynczego wariantu przeprowadzanego eksperymentu.
 
 \begin{listing}[htb]
 \inputminted{text}{skrypty/parallel_input.csv}
 \makecaption{lst:parallel_input}{Zestaw parametrów do wykonania eksperymentu}
 \end{listing}
 
-Ostatnim krokiem jest uruchomienie przygotowanego skryptu~\ref{lst:octave_adcbatch} dla zestawu parametrów zapisanego do sporządzonego wcześniej pliku~\ref{lst:parallel_input}. Należy w tym celu wywołać program \texttt{parallel} z parametrami wymienionymi w listingu~\ref{lst:parallel_adcrun}. Wywołanie omawianego programu przedstawiono w listingu~\ref{lst:parallel_adcrun}.
+Ostatnim krokiem jest uruchomienie przygotowanego skryptu~\ref{lst:octave_adcbatch} dla zestawu parametrów zapisanego do sporządzonego wcześniej pliku~\ref{lst:parallel_input}. Należy w tym celu wywołać program \texttt{parallel} z parametrami wymienionymi w listingu~\ref{lst:parallel_adcrun}. Wywołanie omawianego programu przedstawiono w listingu~\ref{lst:parallel_adcrun}. W pierwszej linii skryptu tworzony jest wyjściowy plik tekstowy (istniejący plik jest nadpisywany) oraz zapisywana jest w nim pierwsza linia, zawierająca nagłówek. Następnie za pomocą programu \texttt{parallel} uruchamiany jest program \texttt{GNU Octave}, którego zadaniem jest wykonanie eksperymentu dla zadanych parametrów, które wczytane zostały ze wskazanego pliku źródłowego.
 
 \begin{listing}[htb]
 \inputminted{bash}{skrypty/parallel_adcrun.sh}
-\makecaption{lst:parallel_adcrun}{Skrypt przeznaczony do uruchamiania wsadowego}
+\makecaption{lst:parallel_adcrun}{Skrypt \texttt{bash} przeznaczony do wsadowego uruchamiania symulacji}
 \end{listing}
  
 Zaproponowane rozwiązanie umożliwia automatyczną kontrolę procesu uruchamiania kolejnych wariantów eksperymentu. Obliczenia są prowadzone z wykorzystaniem wszystkich dostępnych procesorów, nawet jeżeli dla oryginalnego skryptu nie wprowadzono zrównoleglenia -- każdy wariant eksperymentu uruchamiany jest w osobnym procesie w ten sposób, że nieprzerwanie uruchomione jest tyle procesów, ile dostępnych jest procesorów logicznych. Po wykonaniu pojedynczego wariantu eksperymentu uruchamiany jest kolejny, aż do zakończenia realizacji wszystkich wariantów. Wyniki eksperymentów wraz z zadanymi parametrami są zapisywane zbiorczo do wskazanego pliku. 
+
+Należy podkreślić, że zaproponowane w niniejszym podrozdziale rozwiązania skupiały się na minimalizacji stopnia skomplikowania programu \texttt{parallel}. Opcje tego programu są bowiem ogromne i przykładowo można wykorzystać je w celu automatycznego utworzenia iloczynu kartezjańskiego dla kolejnych parametrów eksperymentu, czy też wygenerowaniu zestawu wartości parametrów dla określonego zakresu i interwału. Program ten jest bardzo rozbudowany i skomplikowany, stąd nie przedstawiano jego zaawansowanych opcji. Pomoc odnośnie stosowania omawianego programu oraz przykłady zastosowań znaleźć można w \href{https://www.gnu.org/software/parallel/man.html}{dokumentacji} oraz \href{https://www.gnu.org/software/parallel/parallel_tutorial.html}{samouczku}.
  
 \section{Archiwizacja wyników badań}
 
@@ -77,10 +79,174 @@ Aby umożliwić automatyczne przetwarzanie wyników eksperymentów należy odpow
 
 Należy zaznaczyć, że standardowy arkusz kalkulacyjny umożliwia podgląd, edycję oraz wykonywanie operacji na omawianym formacie pliku. Ograniczenie stanowi natomiast możliwość sporządzania w nim wykresów oraz formuł -- te elementy nie zostaną zapisane po zamknięciu pliku, stąd aby je zachować należy zapisać dane w natywnym formacie dla stosowanego arkusza kalkulacyjnego. Poza arkuszem kalkulacyjnym dane mogą być bezproblemowo wczytane przez program \texttt{GNU Octave}, \texttt{gnuplot}, \texttt{parallel} oraz inne programy, co przedstawiono w kolejnych sekcjach.
 
-
+Stosowanie rozwiązania, jakim jest klasyczny plik tekstowy, umożliwia wymianę danych pomiędzy bardzo dużą liczbą różnych programów, zachowując przy tym postać czytelną dla człowieka. Wadą tego rozwiązania są niektóre ograniczenia stosowania go w arkuszu kalkulacyjnym oraz duży rozmiar pliku w przypadku istotnie dużych serii danych (przykładowo w celu archiwizacji wszystkich wyników uzyskanych dla metody Monte Carlo). Analizując listing~\ref{lst:octave_adcbatch} zauważyć można, że dane zapisywane do omawianego pliku formatować można dowolnie, stosując mechanizm wyświetlania ich na ekranie oraz przekierowując strumień wyjścia programu do pliku, co przedstawiono w listingu~\ref{lst:parallel_adcrun} stosując program \texttt{tee} z zestawu narzędzi \texttt{GNU Coreutils}, opisanego szerzej w \href{https://www.gnu.org/software/coreutils/manual}{dokumentacji}.
 
 \section{Wstawianie wyników do tabel}
 
+Wyniki obliczeń, pomiarów i eksperymentów bardzo często są przedstawiane w publikacjach. Istotne jest, aby były one odpowiednio sformatowane i czytelne. Często jednak w roboczej wersji manuskryptu pojawia się konieczność aktualizacji tych wyników lub zmiany ich wariantu. Standardowo oznacza to ponowne, ręczne kopiowanie danych z arkusza do dokumentu, manualny wybór zakresu tych danych oraz ich ponowne formatowanie. Należy dodatkowo zauważyć, że standardowym separatorem liczb dziesiętnych jest kropka, gdzie w języku polskim stosowany jest przecinek. Omawiana praca jest mozolna i czasochłonna, stąd zasadne jest zaproponowanie rozwiązania, które pozwoli jej uniknąć. Jedną z możliwości jest zastosowanie biblioteki \texttt{pgfplotstable}, która umożliwia automatyczne wczytywanie danych z pliku, formatowanie ich i przedstawienie w formie tabeli dla systemu składu \LaTeX{}.
+
+Załóżmy, że przeprowadzony został eksperyment omówiony w poprzednim podrozdziale, którego przebieg przedstawiono w listingu~\ref{lst:octave_adcbatch}. Eksperyment uruchomiono zgodnie z propozycją zawartą w listingu~\ref{lst:parallel_adcrun}, stąd wynikowy plik tekstowy zawiera 5 kolumn: \verb|nq|, \verb|xmax|, \verb|xmin|, \verb|nvar| oraz \verb|unc|. Pierwsze cztery kolumny stanowią parametry eksperymentu, natomiast ostatnia odnosi się do jego wyniku. Kolejne warianty eksperymentu związane są z kolejnymi wierszami omawianego pliku, przy czym w pierwszej linii znajdują się nagłówki kolumn. Stosując zaproponowane rozwiązanie, za pomocą listingu~\ref{lst:pgftable_sample} osiągnąć można rezultat przedstawiony w tabeli~\ref{tab:pgftable_sample}.
+
+\begin{table}[htb]
+\pgfplotstabletypeset[
+	header = has colnames,
+	col sep = semicolon, 
+	sort, sort key = unc,
+	columns = {nq, xmax, xmin, nvar, unc},
+	columns/nq/.style = {
+		column name = \textbf{$n_q$},
+		dec sep align
+	},
+	columns/xmax/.style = {
+		column name = \textbf{$x_{\max}$, \unit{V}},
+		fixed, fixed zerofill, precision = 2,
+	},
+	columns/xmin/.style = {
+		column name = \textbf{$x_{\min}$, \unit{V}},
+		fixed, fixed zerofill, precision = 2,
+	},
+	columns/nvar/.style = {
+		column name = \textbf{$\sigma_n^2$, \unit{mV^2}},
+		fixed, fixed zerofill, precision = 1,
+		multiply by = 1000,
+	},
+	columns/unc/.style = {
+		column name = \textbf{Niepewność, \unit{mV}},
+		fixed, precision = 0,
+		multiply by = 1000,
+	} 
+]{skrypty/wyniki_eksperymentu.csv}
+\makecaption{tab:pgftable_sample}{Tabela z danymi wygenerowana na podstawie listingu~\ref{lst:pgftable_sample}}
+\end{table}
+
+\begin{listing}[p]
+\inputminted{latex}{skrypty/pgftable_sample.tex}
+\makecaption{lst:pgftable_sample}{Kod źródłowy użyty do wygenerowania tabeli~\ref{tab:pgftable_sample}}
+\end{listing}
+
+Biblioteka \texttt{pgfplotstable} umożliwia wczytanie danych zawartych w pliku tekstowym oraz wygenerowanie na ich podstawie gotowej tabeli. Kolumny używane w tabeli są zdefiniowane przez opcję \verb|columns|, przy czym separator stosowany w pliku określany jest w opcji \verb|col sep|. Opcja \verb|sort| aktywuje sortowanie, przy czym \verb|sort key| ustala kolumnę, która ma być użyta podczas sortowania danych. W dalszej części listingu ustalane są opcje formatowania, gdzie: \verb|dec sep align| ustala wyrównanie względem separatora dziesiętnego, \verb|fixed| ustala format klasyczny, \verb|fixed zerofill| aktywuje opcję dopisywania dodatkowych zer, \verb|precision| ustala liczbę miejsc dziesiętnych, natomiast \verb|multiply by| umożliwia pomnożenie wartości przez określoną liczbę, co wykorzystano w przykładzie aby dane zapisane w pliku w postaci voltów przedstawić w tabeli w postaci miliwoltów. Wykonywanie dowolnych obliczeń możliwe są stosując opcję \verb|preproc/expr|, przykładowo \verb|preproc/expr = {2 * ##1 + 4}|.
+
+Omawiana biblioteka zapewnia bardzo wiele możliwości formatowania wyników oraz operacji na nich. Możliwe jest również między innymi generowanie dodatkowych kolumn z obliczeniami, filtrowanie danych, zamiana tekstu, kolorowanie wyników i wiele innych. Operacje te opisane są szczegółowo w \href{https://pgfplots.sourceforge.net/pgfplotstable.pdf}{dokumentacji}.
+
+Aby uzyskać przedstawiony w tabeli~\ref{tab:pgftable_sample} format liczb należy jednak w pierwszej kolejności zastosować odpowiednią konfigurację biblioteki \texttt{pgfplots}. Należy w tym celu umieścić kod przedstawiony w listingu~\ref{lst:pgfplots_config} przed rozpoczęciem dokumentu. Ustawienia te wprowadzają przecinek jako separator dziesiętny, umożliwiają wczytywanie plików z takim separatorem oraz usuwają separator tysięcy. Opcja \verb|compat = newest| ustawia tryb zgodności pakietu pakietu na najwyższą dostępną w systemie wersję.
+
+\begin{listing}[htb]
+\inputminted{latex}{skrypty/pgfplots_config.tex}
+\makecaption{lst:pgfplots_config}{Konfiguracja biblioteki \texttt{pgfplots}}
+\end{listing}
+
+Uzyskanie fragmentów obramowania w nagłówku oraz na końcu tabeli możliwe jest stosując dodatkową konfigurację przedstawioną w listingu~\ref{lst:pgftable_config}. Wymagana jest w tym celu biblioteka \texttt{booktabs}. Zgodnie z ideą twórcy wskazanej biblioteki stosowanie pionowych kresek podczas tworzenia tabeli redukuje jej czytelność i nie jest zalecane, stąd domyślnie te nie są dodawane. Istnieje jednak opcja dodania ich ręcznie, co opisano w \href{https://pgfplots.sourceforge.net/pgfplotstable.pdf}{dokumentacji}. 
+
+\begin{listing}[htb]
+\inputminted{latex}{skrypty/pgftable_config.tex}
+\makecaption{lst:pgftable_config}{Konfiguracja biblioteki \texttt{pgfplotstable}}
+\end{listing}
+
+Inną możliwością formatowania wyników w tabelach generowanych przez \texttt{pgfplotstable} jest użycie biblioteki \texttt{siunitx}. Biblioteka ta omawiana była w poprzednim rozdziale, jako polecana do formatowania liczb, wielkości fizycznych oraz ich jednostek. Niestety, jej stosowanie nie jest bezpośrednio wspierane przez \texttt{pgfplotstable}. W celu zastosowania biblioteki \texttt{siunitx} w tabeli generowanej przez bibliotekę \texttt{pgfplotstable} należy ustawić rodzaj kolumny na \verb|numeric as string type|, a następnie ustawić typ kolumny na \verb|column type = {S[format]}|, gdzie \verb|format| jest zestawem opcji formatowania zadanej kolumny. Wskazane ustawienia powodują, że wartości w tabeli nie są formatowane przez \texttt{pgfplotstable} i zostają przekazane bezpośrednio na wejście \texttt{siunitx}. Jest to jednak rozwiązanie dość zawiłe, ponieważ wymusza manualne ustalenie precyzji i sposobu wyświetlania danych.
+
+Biblioteka \texttt{pgfplotstable} posiada niestety pewne istotne wady. Jedną z nich jest brak możliwości w pełni estetycznego wyrównania zawartości tabeli do separatora dziesiętnego, co jest bardzo łatwo osiągane stosując bibliotekę \texttt{siunitx}. Mimo, że stosując opcję \verb|dec sep align| dane są wyrównane do separatora, to cała kolumna nie jest wycentrowana. Inną istotną wadę stanowi duży stopień skomplikowania w razie potrzeby stosowania innego stylu obramowania, niż ten przedstawiony na przykładzie tabeli~\ref{tab:pgftable_sample}, który zalecany jest przez twórcę biblioteki \texttt{booktabs}. Problemy te można obejść, natomiast jest to niewygodne i wymaga odpowiedniej wiedzy i wprawy.
+
+Można zauważyć, że przedstawiony sposób zapewnia możliwość automatycznego formatowania tabeli oraz automatyczną aktualizację jej treści w przypadku zmiany zawartości pliku z danymi. Należy jednak podkreślić, że próg wejścia w stosowanie pakietu \texttt{pgfplotstable} jest ogromny, a czasami osiągnięcie pozornie prostych rezultatów jest karkołomnym zadaniem. Należy jednak docenić omawiany pakiet ze względu na bardzo duże możliwości, jakie oferuje.
+
+Alternatywą dla omówionej powyżej biblioteki może być znacznie łatwiejsza w obsłudze biblioteka \texttt{csvsimple}. Biblioteka ta nie oferuje bezpośrednio możliwości przetwarzania danych oraz nie zapewnia możliwości ich formatowania, co nie oznacza, że nie można tych efektów osiągnąć stosując dodatkowe narzędzia. Niewielkie, w porównaniu do konkurencji, możliwości są natomiast rekompensowane relatywnie niskim stopniem skomplikowania podczas stosowania biblioteki. Odpowiednikiem tabeli~\ref{tab:pgftable_sample} sporządzonej za pomocą omawianego rozwiązania jest tabela~\ref{tab:csvsimple_sample}, którą na podstawie tego samego pliku z danymi wygenerowano stosując kod źródłowy przedstawiony w listingu~\ref{lst:csvsimple_sample}.
+
+\begin{table}[p]
+\sisetup{round-mode = places}
+\csvreader[
+	head to column names,
+	separator = semicolon,
+	tabular = |c|c|c|c|c|,
+	table head = 
+		\hline
+		\textbf{$n_q$} & 
+		\textbf{$x_{\max}$, \unit{V}} & 
+		\textbf{$x_{\min}$, \unit{V}} & 
+		\textbf{$\sigma_n^2$, \unit{mV^2}} & 
+		\textbf{Niepewność, \unit{mV}} \\
+		\hline,
+	late after line = \\ \hline,
+]{skrypty/wyniki_eksperymentu.csv}{}{
+	\tablenum[table-format = 4.0, round-precision = 0]{\nq} & 
+	\tablenum[table-format = +2.2, round-precision = 2]{\xmax} & 
+	\tablenum[table-format = +2.2, round-precision = 2]{\xmin} & 
+	\tablenum[table-format = 3.2, round-precision = 2]{\fpeval{\nvar * 1e3}} & 
+	\tablenum[round-mode = figures, round-precision = 2]{\fpeval{\unc * 1e3}}
+}
+\makecaption{tab:csvsimple_sample}{Tabela z danymi wygenerowana na podstawie listingu~\ref{lst:csvsimple_sample}}
+\end{table}
+
+\begin{listing}[p]
+\inputminted{latex}{skrypty/csvsimple_sample.tex}
+\makecaption{lst:csvsimple_sample}{Kod źródłowy użyty do wygenerowania tabeli~\ref{tab:csvsimple_sample}}
+\end{listing}
+
+Przedstawiony w listingu~\ref{lst:csvsimple_sample} przykład wczytuje dane z pliku źródłowego \verb|wyniki_eksperymentu.csv| i wstawia je automatycznie do tabeli stosując środowisko \texttt{tabular}. Opcja \verb|head to column names| informuje o obecności nagłówka, natomiast opcja \verb|separator = semicolon| ustawia średnik jako separator kolumn. Nagłówek tabeli jest definiowany bezpośrednio w opcji \verb|table head|, identycznie jak w przypadku tabeli wstawionej ręcznie, którą przedstawiono wcześniej w listingu~\ref{lst:tables_sample}.
+
+W omawianej tabeli dla wszystkich kolumn zastosowano typ, w którym zawartość jest wyrównywana do środka. Eleganckie wyrównanie liczb, w którym punktem odniesienia jest separator dziesiętny, osiągnięto stosując polecenie \mintinline{latex}{\tablenum} z pakietu \texttt{siunitx}. Opcjonalny parametr \verb|table-format| pozwala dopasować szerokość kolumny do długości danych, natomiast parametr \verb|round-precision| określa do ilu miejsc po przecinku dane mają być zaokrąglone. Domyślnie biblioteka \texttt{siunitx} formatuje wartości liczbowe w ten sposób, że zachowywana jest oryginalna precyzja liczb, stąd stosowanie wskazanych opcji wymusza zadany format niezależnie od tego, w jaki sposób sformatowane są dane w pliku źródłowym.
+
+Mimo, że biblioteka \texttt{csvsimple} nie umożliwia bezpośrednich operacji na danych, w przykładzie wykonano przekształcenie zamieniające w kolumnach \texttt{nvar} oraz \texttt{unc} wartości z woltów na miliwolty. Osiągnięto to w prosty sposób stosując polecenie \mintinline{latex}{\fpeval} dostępne w bibliotece \texttt{xfp}. Mimo, że rozwiązanie to nie oferuje tak bogatych możliwości, jak te dostępne w bibliotece \texttt{pgfplotstable}, jest ono w większości typowych przypadków wystarczające.
+
+Bardzo ciekawą opcją biblioteki \texttt{siunitx} jest również możliwość automatycznego formatowania wyników oraz ich niepewności, zgodnie z zaleceniami przewodnika JCGM~\cite{jcgm_guide}. Zastosowanie opcji \verb|round-mode = figures| powoduje, że parametr \verb|round-precision| ustala liczbę cyfr znaczących, zamiast liczby miejsc dziesiętnych. Opcja ta nie jest bezpośrednio dostępna stosując rozwiązanie oparte na \texttt{pgfplotstable}.
+
+W przypadku, gdy w jednej kolumnie znajduje się wynik oraz jego niepewność zastosować można opcję \verb|round-mode = uncertainty| wraz z \verb|round-precision|. Opcja ta powoduje, że wartość niepewności zaokrąglana jest do zadanej liczby cyfr znaczących, po czym wartość wyniku zaokrąglana jest z tą samą precyzją. Użycie tej opcji wymaga, aby wartości były zapisane w formacie \verb|wynik(niepewność)| lub \verb|wynik \pm niepewność|. Dla przykładu \mintinline{latex}{\num[round-mode = uncertainty, round-precision = 2]{5012.345 \pm 123.587}} zamieni się na \num[round-mode = uncertainty, round-precision = 2]{5012.345 \pm 123.587}, natomiast \mintinline{latex}{\num[round-mode = uncertainty, round-precision = 2]{12.345(6.789)}} zamieni się na \num[round-mode = uncertainty, round-precision = 2]{12.345(6.789)}. Szczegóły odnośnie opcji formatowania są opisane w \href{http://mirrors.ctan.org/macros/latex/contrib/siunitx/siunitx.pdf}{dokumentacji} biblioteki \texttt{siunitx}.
+
+Standardowo biblioteka \texttt{csvsimple} nie oferuje możliwości sortowania danych, jak miało to miejsce w przypadku stosowania pakietu \texttt{pgfplotstable}. Opcja ta jest jednak dostępna stosując zewnętrzne narzędzie \texttt{CSV-Sorter}, dostępne w \href{https://github.com/T-F-S/csvsorter}{repozytorium} na portalu GitHub. Narzędzie to należy skonfigurować zgodnie z \href{http://mirrors.ctan.org/macros/latex/contrib/csvsimple/csvsimple-l3.pdf}{instrukcją}. Następnie w opcjach polecenia \mintinline{latex}{\csvreader} podać należy w parametrze \verb|sort by = plik.xml| ścieżkę do pliku z ustawieniami sortowania, gdzie przykładową treść takiego pliku dla tabeli z listingu~\ref{lst:csvsimple_sample} przedstawiono w listingu~\ref{lst:csvsimple_sort}.
+
+\begin{listing}[htb]
+\inputminted{xml}{skrypty/csvsimple_sort.xml}
+\makecaption{lst:csvsimple_sort}{Przykładowa konfiguracja sortowania dla tabeli~\ref{tab:csvsimple_sample}}
+\end{listing}
+
+Ostatnim możliwym sposobem na wczytywanie danych tabeli z pliku jest opcja generowania treści przedstawionej w listingu~\ref{lst:tables_sample} zewnętrznym narzędziem i wklejanie jej do pliku źródłowego dokumentu. W tym celu należy w miejscu danych tabeli wstawić polecenie \mintinline{latex}{\import{nazwa_pliku}}, a następnie przed kompilacją dokumentu użyć programu \mintinline{bash}{latexpand --keep-comments projekt.tex > kompilacja.tex}, przy czym w kolejnym kroku kompilować należy plik \verb|kompilacja.tex| zamiast oryginalnego pliku z projektem. Wskazane rozwiązanie nie jest jednak eleganckie i profesjonalne. Zastosowanie programu \texttt{latexpand} jest konieczne, aby w miejscu użycia polecenia \mintinline{latex}{\import} wstawić treść wskazanego pliku -- inaczej podczas kompilacji wystąpi błąd. Należy zaznaczyć, że rozwiązanie to należy stosować \enquote{w ostateczności}.
+
+Jak wspomniano w poprzednim rozdziale, tworzenie tabel w systemie składu \LaTeX{} bywa skomplikowane. Trudne do osiągnięcia w klasycznym edytorze efekty są często osiągane automatycznie. Wczytywanie danych oraz ich formatowanie jest natomiast łatwe i przyjemne, przy czym osiąganie rzeczy z pozoru prostych, jak przykładowo wyśrodkowanie tylko nagłówka tabeli i wyrównanie jej treści do jednej ze stron, wymagają sztuczek. Zgodnie z zasadą \enquote{nie można mieć wszystkiego}, żaden z dostępnych mechanizmów oferujących automatyczne wstawianie i formatowanie tabel nie jest idealny. Czasami brakuje w nim istotnych dla użytkownika możliwości, a czasami jego stopień skomplikowania powoduje ogromny próg wejścia i zniechęca do jego stosowania. Warto jednak zauważyć, że raz przygotowany szablon tabeli może być z łatwością stosowany w wielu miejscach i modyfikowany zgodnie z potrzebą.
+
 \section{Tworzenie eleganckich wykresów}
+
+Bardzo ważne jest, aby styl osadzonych w dokumencie wykresów był spójny z resztą dokumentu. Identyczne parametry czcionki, poprawnie sformatowane wartości liczbowe oraz odpowiedni rozmiar wykresu są bardzo istotne. Osadzone w dokumencie wykresy powinny być zapisane w postaci wektorowej -- stosowanie formatu rastrowego drastycznie obniża bowiem ich jakość i uniemożliwia kopiowanie ich treści. Najbardziej uniwersalnym formatem grafiki wektorowej jest format \texttt{SVG}, przy czym nie jest on bezpośrednio wspierany w \LaTeX{}, stąd wymagane jest wykonanie konwersji tego formatu do \texttt{PDF} stosując na przykład program \texttt{Inkscape}. Formaty zapewniające najlepszą jakość importowanych wykresów to \texttt{PDF} oraz \texttt{TIKZ}. Klasycznie, wykresy generować można między innymi w arkuszu kalkulacyjnym. Wygodnym rozwiązaniem jest również generowanie wykresów stosując program używany do przeprowadzania symulacji. Innym rozwiązaniem jest stosowanie wyspecjalizowanego programu \texttt{gnuplot}, który jest w stanie wygenerować rysunek w formacie \texttt{TIKZ}. Najlepsze rezultaty pozwala natomiast zastosowanie biblioteki \texttt{pgfplots} bezpośrednio w \LaTeX{}.
+
+W przypadku użycia \texttt{GNU Octave} istnieje możliwość zapisu wykresu do każdego ze wskazanych wcześniej formatów. Stosując wyjściowy format \texttt{PDF} napotkać jednak można błędy w eksporcie rysunków związane z ograniczeniami programu, stąd opcja ta nie będzie omawiana. W przypadku opcji \texttt{SVG} generowane wykresy są spójne z resztą dokumentu, pod warunkiem ręcznego wskazania parametrów czcionki podczas ich tworzenia. W przypadku stosowania formatu \texttt{TIKZ} istotne jest jedynie określenie rozmiaru czcionki, przy czym jej krój będzie tożsamy z tym używanym w dokumencie. Przykład skryptu generującego wykres w programie \texttt{GNU Octave} przedstawia listing~\ref{lst:octave_plot}, natomiast wygenerowany w ten sposób wykres przedstawiono na rysunku~\ref{fig:octave_plot}.
+
+\begin{listing}[p]
+\inputminted{octave}{skrypty/octave_plot.m}
+\makecaption{lst:octave_plot}{Skrypt programu \texttt{GNU Octave} generujący rysunek~\ref{fig:octave_plot}}
+\end{listing}
+
+\begin{figure}[htb]
+\includegraphics{obrazki/octave_plot}
+\makecaption{fig:octave_plot}{Rysunek wygenerowany w programie \texttt{GNU Octave} za pomocą skryptu~\ref{fig:octave_plot}}
+\end{figure}
+
+Stosując format \texttt{SVG} konieczne jest ustalenie spójnej z dokumentem czcionki, co natomiast osiągane jest automatycznie podczas stosowania formatu \texttt{TIKZ}. Osiągnięcie spójnego rozmiaru czcionki, który w niniejszym dokumencie wynosi \qty{12}{pt} wymaga uwzględnienia skalowania stosowanego przez program, gdzie dla przedstawionego rozmiaru \qty{11}{pt} osiąga się opis osi rozmiaru \qty{12}{pt}. W przypadku stosowania formatu \texttt{SVG} konieczne jest również ręczne formatowanie wartości liczbowych -- separatora dziesiętnego oraz znaku minusa, co osiągane jest stosując funkcję \verb|set_format| z repozytorium~\cite{auth_fwtutils}. Należy zaznaczyć, że funkcji tej nie należy stosować w przypadku formatu \texttt{TIKZ}. Stosując omawiany format wszystkie wartości oraz etykiety będą interpretowane podczas kompilacji dokumentu, stąd dodatkowo istnieje możliwość bezpośredniego wprowadzania formuł \LaTeX{}.
+
+Wadą stosowania programu \texttt{GNU Octave} jest konieczność zachowania identycznej nazwy i rozmiaru czcionki podczas generowania wykresu, stąd przykładowo zmiana szablonu czasopisma nie zapewnia automatycznego formatowania wykresów. Dodatkowy problem stanowi konieczność ręcznej korekty marginesów wykresu, aby te nie były zbyt duże oraz aby wykres nie był ucięty (należy także dodać, że ustawienia te dla każdego formatu mogą zapewniać inne rezultaty, co jest irytujące). Ostatnią z istotnych wad jest fakt, że stosując format \texttt{SVG} etykiety interpretowane są przez silnik graficzny programu, a nie kompilator stosowany do budowy manuskryptu. Oznacza to, że w niektórych sytuacjach osiągnięcie bardziej skomplikowanych formatów może być niemożliwe (stosując format \texttt{TIKZ} problem ten nie występuje).
+
+Alternatywą dla programu \texttt{GNU Octave} może być program \texttt{gnuplot}, który wyspecjalizowany jest właśnie w tworzeniu wykresów. Warto w tym miejscu zaznaczyć, że wczesne wersje programu \texttt{GNU Octave} stosowały omawiany program jako narzędzie do generowania wykresów, zanim opracowane zostało obecne rozwiązanie. Program ten oferuje zarówno ogromne możliwości tworzenia i formatowania wykresów, jak w wykonywania obliczeń, aproksymacji oraz eksportu wykresów do pliku. Przykład skryptu generującego wykres w programie \texttt{gnuplot} przedstawiono w listingu~\ref{lst:gnuplot_demo}, gdzie rezultat działania tego skryptu przedstawiono na rysunku~\ref{fig:gnuplot_demo}.
+
+\begin{listing}[hbt]
+\inputminted{gnuplot}{skrypty/gnuplot_demo.gnuplot}
+\makecaption{lst:gnuplot_demo}{Skrypt programu \texttt{gnuplot} generujący rysunek~\ref{fig:gnuplot_demo}}
+\end{listing}
+
+\begin{figure}[!htb]
+\includegraphics{obrazki/gnuplot_demo}
+\makecaption{fig:gnuplot_demo}{Rysunek wygenerowany w programie \texttt{gnuplot} za pomocą skryptu~\ref{lst:gnuplot_demo}}
+\end{figure}
+
+Dla przedstawionego rysunku wszystkie wprowadzone opisy oraz wartości są bezpośrednio przetwarzane podczas kompilacji, stąd możliwe jest stosowanie dowolnych poleceń zapewnianych przez stosowane w dokumencie biblioteki. Do formatowania wartości etykiet osi wykorzystano bibliotekę \texttt{siunitx}, aby zachować jednolity z pozostałą częścią manuskryptu format. Można zauważyć, że stosowanie \texttt{gnuplot} zapewnia większą jakość wykresów przy mniejszym stopniu skomplikowania ich sporządzania, a także lepiej integruje się ze stosowaniem poleceń \LaTeX{} w porównaniu do stosowania \texttt{GNU Octave}. Wadą tego rozwiązania jest jednak brak bezpośredniej możliwości wykonywania symulacji w tym programie. Istnieje jednak opcja ładowania danych z pliku tekstowego.
+
+Wykresy generować można również bezpośrednio w dokumencie, stosując w tym celu bibliotekę \texttt{pgfplots}. Rozwiązanie to najlepiej integruje się z dokumentem, a dodatkowo wykresy są automatycznie generowane podczas jego kompilacji, co wyklucza konieczność ręcznego uruchamiania generujących ich skryptów. Przykład wykresu, który generowany jest na podstawie listingu~\ref{lst:pgfplots_demo} przedstawia rysunek~\ref{fig:pgfplots_demo}, przy czym osiągnięty efekt jest podobny do rysunku~\ref{fig:gnuplot_demo}. Wartości osi są formatowane zgodnie z ustawieniami przedstawionymi wcześniej w listingu~\ref{lst:pgfplots_config}. Tworząc wykres stosować można wszystkie funkcje dostępne w dokumencie. Wykresy sporządzone w ten sposób cechują się najwyższą jakością.
+
+\begin{listing}[hbt]
+\inputminted{latex}{obrazki/pgfplots_demo.tex}
+\makecaption{lst:pgfplots_demo}{Skrypt programu \texttt{gnuplot} generujący rysunek~\ref{fig:gnuplot_demo}}
+\end{listing}
+
+\begin{figure}[!htb]
+\includegraphics{obrazki/pgfplots_demo}
+\makecaption{fig:pgfplots_demo}{Rysunek wygenerowany stosując bibliotekę \texttt{pgfplots} za pomocą skryptu~\ref{lst:pgfplots_demo}}
+\end{figure}
+
+asdasd asdasdasd
 
 \section{Uwagi końcowe}

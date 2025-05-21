@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csv>
+	<bracket empty="true" />
+	<delimiter signsymbol="semicolon" />
+	<sortlines>
+		<column name="unc" order="ascending" type="double" />
+	</sortlines>
+</csv>

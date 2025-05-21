@@ -7,4 +7,4 @@
 [ -f obrazki/*.svg ] && inkscape -D obrazki/*.svg --export-type pdf
 
 # Uruchom kompilacje dokumentu i zapisz wyniki do katalogu 'budowa'
-latexmk --shell-escape -output-directory=budowa -pdflua -f thesis.tex
+latexmk -shell-escape -pdflua -f -output-directory=budowa thesis.tex

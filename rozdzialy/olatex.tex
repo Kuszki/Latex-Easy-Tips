@@ -24,7 +24,7 @@ Powyższe informacje najprawdopodobniej zdążyły już utwierdzić czytelnika w
 
 Aby uniknąć nieprzyjemnych przygód i trudności opisanych w poprzedniej sekcji, przygodę z \LaTeX{} zacząć można od zapoznania się z projektem \href{https://github.com/overleaf/overleaf}{\texttt{Overleaf}}. Projekt ten rozwijany jest przez społeczność i udostępniany w ramach licencji \href{https://www.gnu.org/licenses/agpl-3.0.html}{AGPL-3.0}. Twórcy projektu udostępniają wersję \href{https://www.overleaf.com}{online}, z której korzystać można zarówno w ramach bezpłatnej licencji, jak i subskrypcji indywidualnej oraz grupowej. W ramach projektu dostępna jest również możliwość uruchomienia identycznej usługi na własnym komputerze, w dowolnym zastosowaniu, legalnie i całkowicie za darmo. W tym celu wykorzystać można przygotowany przez twórców \href{https://github.com/overleaf/toolkit}{toolkit}.
 
-Po uruchomieniu aplikacji utworzyć można nowy, pusty projekt. Projekt ten składa się z pojedynczego pliku \texttt{main.tex}, którego treść przedstawia listing~\ref{lst:overleaf_sample}. Na początku pliku określana jest klasa dokumentu, na podstawie której ładowane są domyślne opcje formatowania. Następnie ładowane są stosowane biblioteki i określana jest metryka dokumentu. Faktyczna treść dokumentu zawarta jest w środowisku \texttt{document}, to znaczy miedzy liniami \verb|\begin{document}| oraz \verb|\end{document}|. Po lewej stronie okna programu znaleźć można eksplorator plików, natomiast główna część okna składa się z edytora tekstu oraz okna podglądu dokumentu. Po wprowadzeniu zmian należy użyć opcji \enquote{kompiluj}, po czym odświeżony zostanie podgląd dokumentu.
+Po uruchomieniu aplikacji utworzyć można nowy, pusty projekt. Projekt ten składa się z pojedynczego pliku \texttt{main.tex}, którego treść przedstawia listing~\ref{lst:overleaf_sample}. Na początku pliku określana jest klasa dokumentu, na podstawie której ładowane są domyślne opcje formatowania. Następnie ładowane są stosowane biblioteki i określana jest metryka dokumentu. Faktyczna treść dokumentu zawarta jest w środowisku \texttt{document}, to znaczy miedzy liniami \mintinline{latex}{\begin{document}} oraz \mintinline{latex}{\end{document}}. Po lewej stronie okna programu znaleźć można eksplorator plików, natomiast główna część okna składa się z edytora tekstu oraz okna podglądu dokumentu. Po wprowadzeniu zmian należy użyć opcji \enquote{kompiluj}, po czym odświeżony zostanie podgląd dokumentu.
 
 \begin{listing}[htb]
 \inputminted{latex}{skrypty/overleaf_sample.tex}
@@ -51,34 +51,34 @@ Należy podkreślić, że użytkownik nie powinien ręcznie zmieniać ustawień 
 
 \section{Edycja równań}
 
-Wstawianie równań opisane jest w podstawowej formie w \href{https://www.overleaf.com/learn/latex/Mathematical_expressions}{instrukcji} stanowiącej część dokumentacji projektu \texttt{Overleaf}. Najczęściej stosowanym rozwiązaniem jest użycie środowiska \verb|equation|. W ten sposób wprowadzone równania są automatycznie numerowane oraz umieszczane zgodnie z ustawieniami szablonu. Przykładowe równanie:
+Wstawianie równań opisane jest w podstawowej formie w \href{https://www.overleaf.com/learn/latex/Mathematical_expressions}{instrukcji} stanowiącej część dokumentacji projektu \texttt{Overleaf}. Najczęściej stosowanym rozwiązaniem jest użycie środowiska \texttt{equation}. W ten sposób wprowadzone równania są automatycznie numerowane oraz umieszczane zgodnie z ustawieniami szablonu. Przykładowe równanie:
 \begin{equation}
 f_{1}(x) = \int _{0} ^{\infty} (a \cdot x + b) \mathrm{d}x \label{eq:equation_sample_1},
 \end{equation}
-wstawione zostało stosując kod źródłowy przedstawiony w listingu~\ref{lst:equation_sample_1}. Równanie to cytować można w tekście stosując polecenie \verb|\eqref{eq:test}|, gdzie nazwa równania \verb|eq:test| została zdefiniowana stosując zapis \verb|\label{eq:test}| podczas jego definicji. Należy zauważyć, że równanie jest numerowane i formatowane automatycznie.
+wstawione zostało stosując kod źródłowy przedstawiony w listingu~\ref{lst:equation_sample_1}. Równanie to przywoływać można w tekście stosując polecenie \mintinline{latex}{\eqref{nazwa_równania}}, przy czym wymieniona nazwa równania została zdefiniowana w środowisku \texttt{equation}, stosując zapis \mintinline{latex}{\label{nazwa_równania}} tworzący odnośnik. Należy zauważyć, że równanie jest numerowane i formatowane automatycznie, a odstępy nie mają znaczenia.
 
 \begin{listing}[htb]
 \begin{minted}{latex}
 \begin{equation}
-f_{1}(x) = \int _{0} ^{\infty} (a \cdot x + b) \mathrm{d}x \label{eq:test},
+f_{1}(x) = \int _{0} ^{\infty} (a \cdot x + b) \mathrm{d} x \label{nazwa_równania},
 \end{equation}
 \end{minted}
 \makecaption{lst:equation_sample_1}{Kod źródłowy generujący równanie~\eqref{eq:equation_sample_1}}
 \end{listing}
 
-W przypadku, gdy dodawanych jest kilka równań jedno pod drugim nie należy stosować wielokrotnie środowiska \verb|equation|. Zamiast tego stosować można środowiska \verb|gather| lub \verb|align|. Zastosowanie środowiska \verb|gather| pozwala uzyskać efekt:
+W przypadku, gdy dodawanych jest kilka równań jedno pod drugim nie należy stosować wielokrotnie środowiska \texttt{equation}. Zamiast tego stosować można środowiska \texttt{gather} lub \texttt{align}. Zastosowanie środowiska \texttt{gather} pozwala uzyskać efekt:
 \begin{gather}
-f_{1}(x) = 123 x + 321 \label{eq:equation_sample_2}, \\
-f_{2}(x) = 8 x + 7 \label{eq:equation_sample_3},
+f_{2}(x) = 123 x + 321 \label{eq:equation_sample_2}, \\
+f_{3}(x) = 8 x + 7 \label{eq:equation_sample_3},
 \end{gather}
-natomiast stosowanie środowiska \verb|align| umożliwia wyrównanie wszystkich równań do wspólnego punktu odniesienia, co pozwala na uzyskanie efektu:
+natomiast stosowanie środowiska \texttt{align} umożliwia wyrównanie wszystkich równań do wspólnego punktu odniesienia, co pozwala na uzyskanie efektu:
 \begin{align}
-f_{3}(x) &= 896 x - 777 \label{eq:equation_sample_4}, \\
-f_{4}(x) &= 2 x + 3 \label{eq:equation_sample_5}.
+f_{4}(x) &= 896 x - 777 \label{eq:equation_sample_4}, \\
+f_{5}(x) &= 2 x + 3 \label{eq:equation_sample_5}.
 \end{align}
-Stosować również można inne rozwiązania z biblioteki \verb|amsmath|, zgodnie z potrzebą i przeznaczeniem, w tym przykładowo środowisko \verb|cases|:
+Stosować również można inne rozwiązania z biblioteki \texttt{amsmath}, zgodnie z potrzebą i przeznaczeniem, w tym przykładowo środowisko \texttt{cases}:
 \begin{equation}
-f_{5}(x) =
+f_{6}(x) =
 \begin{cases}
 0, & \text{jeżeli $x \ge \pi$}  \\
 1, & \text{w przeciwnym razie}
@@ -88,15 +88,15 @@ f_{5}(x) =
 Kody źródłowe dla wskazanych przykładów, umożliwiające wprowadzenie równań od~\eqref{eq:equation_sample_2} do~\eqref{eq:equation_sample_6}, przedstawiono zbiorczo w listingu~\ref{lst:equation_sample_2_6}.
 
 \begin{listing}[htb]
-\inputminted{latex}{skrypty/overleaf_sample.tex}
+\inputminted{latex}{skrypty/equations_sample.tex}
 \makecaption{lst:equation_sample_2_6}{Kod źródłowy generujący równania od~\eqref{eq:equation_sample_2} do~\eqref{eq:equation_sample_6}}
 \end{listing}
 
-Można zauważyć, że równania wstawione w przedstawiony sposób stają się częścią zdania. Przecinek lub kropkę po równaniu wstawia się wewnątrz definicji tego równania. Jeśli po zakończeniu środowiska równania nie zostanie wstawione więcej niż jedno przejście do nowej linii, to akapit zawierający równanie będzie kontynuowany. Jeśli natomiast po równaniu pojawią się co najmniej dwa znaki nowej linii, rozpoczęty zostanie kolejny akapit.
+Można zauważyć, że równania wstawione w przedstawiony sposób stają się częścią zdania. Przecinek lub kropkę po równaniu wstawia się wewnątrz definicji tego równania. Jeśli po zakończeniu środowiska równania nie zostanie wstawione więcej niż jedno przejście do nowej linii, to akapit zawierający równanie będzie kontynuowany. Jeśli natomiast po równaniu pojawią się co najmniej dwa znaki nowej linii, rozpoczęty zostanie kolejny akapit. Wstawianie etykiet równań jest opcjonalne, natomiast bez nich nie ma możliwości odwołania się do równania. Równania bez etykiety również są numerowane.
 
-Równania wstawiać można również bezpośrednio wewnątrz akapitu, podczas wprowadzania tekstu. Należy w tym celu umieścić treść równania pomiędzy znakami dolara. W ten sposób zapis \verb|$f(x) = ax + b$| zamieni się na $f(x) = ax + b$. Należy podkreślić, że podczas wprowadzania równań liczba spacji pomiędzy kolejnymi symbolami nie ma żadnego znaczenia.
+Równania wstawiać można również bezpośrednio wewnątrz akapitu, podczas wprowadzania tekstu. Należy w tym celu umieścić treść równania pomiędzy znakami dolara. W ten sposób zapis \mintinline{latex}{$f(x) = ax + b$} zamieni się na $f(x) = ax + b$. Należy podkreślić, że podczas wprowadzania równań liczba spacji pomiędzy kolejnymi symbolami nie ma żadnego znaczenia.
 
-Podczas pisania wzorów należy zwrócić uwagę na rozmiar nawiasów. Stosowanie zapisu \verb|(...)| nie zapewnia dynamicznej zmiany rozmiaru nawiasów, stąd równanie nie będzie wyglądało estetycznie w przypadku, gdy treść nawiasu jest wysoka. W takim przypadku należy stosować zapis \verb|\left( ... \right)|, który działa dla dowolnego rodzaju nawiasu. Przykład poprawnego formatowania przedstawia równanie:
+Podczas pisania wzorów należy zwrócić uwagę na rozmiar nawiasów. Stosowanie zapisu \mintinline{latex}{(...)} nie zapewnia dynamicznej zmiany rozmiaru nawiasów, stąd równanie nie będzie wyglądało estetycznie w przypadku, gdy treść nawiasu jest wysoka. W takim przypadku należy stosować zapis \mintinline{latex}{\left( ... \right)}, który działa dla dowolnego rodzaju nawiasu. Przykład poprawnego formatowania przedstawia równanie:
 \begin{equation}
 \mathbb{E}_\delta \left[ \cos \emb{\omega \delta} \right] = \cos \emb{\omega \mu} \exp \emb{-\frac{1}{2} \omega^2 \sigma^2} \label{eq:equation_sample_7_good},
 \end{equation}
@@ -115,22 +115,24 @@ przy czym kod źródłowy równania~\eqref{eq:equation_sample_7_good}, pozwalaj�
 \makecaption{lst:equation_sample_7}{Kod źródłowy generujący równanie~\eqref{eq:equation_sample_7_good}}
 \end{listing}
 
-Symbole specjalnie, takie jak litery greckie czy symbole matematyczne, wprowadzane są do równań stosując ich nazwę. Przykładowo \verb|\alpha| zamienia się na $\alpha$ oraz \verb|\varphi| zamienia się na $\varphi$. Symbole te należy stosować w trybie matematycznym. Indeksy górne osiąga się przez stosowanie znaków \verb|x _{a} ^{b}|, co zamienione zostanie na $x _{a} ^{b}$. Domyślnie wszystkie symbole traktowane są jako zmienne i pisane są kursywą. Jeżeli symbol stanowi macierz lub wektor, należy zastosować format \verb|\mathbfit{X}|, co zamienia się na $\mathbfit{X}$. Jeżeli natomiast symbol jest wartością stałą i powinien być zapisany czcionką prostą, stosuje się \verb|\mathrm{e}|, co zamienia się na $\mathrm{e}$.
+Znaki specjalnie, takie jak litery greckie czy symbole matematyczne, wprowadzane są do równań stosując ich nazwę. Przykładowo \mintinline{latex}{\alpha} zamienia się na $\alpha$ oraz \mintinline{latex}{\varphi} zamienia się na $\varphi$. Symbole te należy stosować w trybie matematycznym, czyli wewnątrz omówionych wcześniej środowisk lub w tekście pomiędzy symbolami dolara. Stosowanie ich w trybie tekstowym skutkować będzie błędem kompilacji.
+
+Indeksy górne osiąga się przez stosowanie znaków \mintinline{latex}{x _{a} ^{b}}, co zamienione zostanie na $x _{a} ^{b}$. Domyślnie wszystkie symbole traktowane są jako zmienne i pisane są kursywą. Jeżeli symbol stanowi macierz lub wektor, należy zastosować format \mintinline{latex}{\mathbfit{X}}, co zamienia się na $\mathbfit{X}$. Jeżeli natomiast symbol jest wartością stałą i powinien być zapisany czcionką prostą, stosuje się \mintinline{latex}{\mathrm{e}}, co zamienia się na $\mathrm{e}$.
 
 \section{Formatowanie liczb i jednostek}
 
 Jeżeli w tekście występują wielkości fizyczne wraz z ich wartościami i jednostkami, zaleca się stosowanie biblioteki \texttt{siunitx}. Biblioteka ta automatycznie formatuje wartości liczbowe i umożliwia wprowadzanie ich jednostek. Główną zaletą biblioteki jest obsługa formatowania zależnego od regionu, takiego jak na przykład automatyczna zmiana separatora dziesiętnego. Przykłady użycia biblioteki to:
 \begin{itemize}
-\item \verb|$U = \qty{12.3}{\micro V}$| zamieni się na $U = \qty{12.3}{\micro V}$,
-\item \verb|$a = \qty{10}{m \per s^2}$| zamieni się na $a = \qty{10}{m \per s^2}$,
-\item \verb|\qty{\pm 0.25}{\percent}| zamieni się na \qty{\pm 0.25}{\percent},
-\item \verb|\qty{1.29 \pm 0.16}{\ohm}| zamieni się na \qty{1.29 \pm 0.16}{\ohm},
-\item \verb|\num{100000}| zamieni się na \num{100000},
-\item \verb|\num{1.124e-7}| zamieni się na \num{1.124e-7}.
+\item \mintinline{latex}{$U = \qty{12.3}{\micro V}$} zamieni się na $U = \qty{12.3}{\micro V}$,
+\item \mintinline{latex}{$a = \qty{10}{m \per s^2}$} zamieni się na $a = \qty{10}{m \per s^2}$,
+\item \mintinline{latex}{\qty{\pm 0.25}{\percent}} zamieni się na \qty{\pm 0.25}{\percent},
+\item \mintinline{latex}{\qty{1.29 \pm 0.16}{\ohm}} zamieni się na \qty{1.29 \pm 0.16}{\ohm},
+\item \mintinline{latex}{\num{100000}} zamieni się na \num{100000},
+\item \mintinline{latex}{\num{1.124e-7}} zamieni się na \num{1.124e-7}.
 \end{itemize}
-Zapisy \verb|\num{...}| oraz \verb|\qty{...}{...}| mogą być stosowane zarówno w trybie matematycznym, jak i bezpośrednio w tekście. Pomiędzy wartością oraz jednostką automatycznie dodawana jest nierozdzielająca spacja. 
+Zapisy \mintinline{latex}{\num{...}} oraz \mintinline{latex}{\qty{...}{...}} mogą być stosowane zarówno w trybie matematycznym, jak i bezpośrednio w tekście. Pomiędzy wartością oraz jednostką automatycznie dodawana jest nierozdzielająca spacja. 
 
-Należy zauważyć, że wprowadzając wartość liczbową wraz z ręcznym stosowaniem przecinka jako separatora dziesiętnego uzyskuje się nieprawidłowy wygląd równania. Przykładowo \verb|x = 12,3| zamienia się na $x = 12,3$, gdzie zauważyć można niepotrzebną spację przed częścią dziesiętną. Stosowanie zapisu \verb|x = \num{12.3}| zapewnia możliwość uzyskania $x = \num[locale = PL]{12.3}$ w przypadku dokumentu w języku polskim oraz $x = \num[locale = US]{12.3}$ dla dokumentu w języku angielskim. Można zatem bardzo łatwo skopiować fragment dokumentu lub przenieść go do innego szablonu, nawet o innym języku.
+Należy zauważyć, że wprowadzając wartość liczbową wraz z ręcznym stosowaniem przecinka jako separatora dziesiętnego uzyskuje się nieprawidłowy wygląd równania. Przykładowo \mintinline{latex}{x = 12,3} zamienia się na $x = 12,3$, gdzie zauważyć można niepotrzebną spację przed częścią dziesiętną. Stosowanie zapisu \mintinline{latex}{x = \num{12.3}} zapewnia możliwość uzyskania $x = \num[locale = PL]{12.3}$ w przypadku dokumentu w języku polskim oraz $x = \num[locale = US]{12.3}$ dla dokumentu w języku angielskim. Można zatem bardzo łatwo skopiować fragment dokumentu lub przenieść go do innego szablonu, nawet o innym języku.
 
 Wszystkie zasady formatowania liczb i jednostek ustala się na początku dokumentu w ustawieniach biblioteki \texttt{siunitx}. Oznacza to, że w przypadku potrzeby zmiany formatowania należy jedynie skorygować ustawienia, po czym wszystkie miejsca gdzie stosowano odpowiednie formatowanie zaktualizują się automatycznie. Bibliotekę można dołączyć do projektu stosując zapis \mintinline{latex}{\usepackage[locale = PL]{siunitx}}. Stosowanie dodatkowych bibliotek jest akceptowane przez czasopisma pod warunkiem, że te skonfigurowane są tak, aby uzyskać format wymagany przez wydawnictwo. Szczegóły konfiguracji omawianej biblioteki znajdują się w jej \href{https://ctan.org/pkg/siunitx}{dokumentacji}.
 
@@ -147,9 +149,9 @@ Przykład osadzenia rysunku w tekście przedstawiono w listingu~\ref{lst:images_
 \makecaption{lst:images_sample}{Kod źródłowy umożliwiający osadzenie rysunku}
 \end{listing}
 
-Podpis rysunku wraz z numerem generują się automatycznie, przy czym formatowanie i styl podpisu wynikają z definicji zawartych w szablonie. Domyślnie podpis jest generowany w miejscu, gdzie wstawione zostało polecenie \verb|\caption{Treść}|, stąd istotne jest czy pojawi się ono przed poleceniem \verb|\includegraphics{nazwa_pliku}|, czy po nim. Można jednak zmienić to zachowanie stosując bibliotekę \texttt{floatrow}, która umożliwia globalne określenie stylu i lokalizacji podpisów wszystkich obiektów, dzięki czemu niezależnie od kolejności użycia poleceń uzyskać można poprawną lokalizację podpisu. Standardowo rysunki wstawiane są pomiędzy treścią akapitu lub pomiędzy akapitami. Istnieje jednak możliwość wstawienia rysunku w ten sposób, by był on otoczony przez tekst. Stosować w tym celu należy bibliotekę \texttt{wrapfig}. Takie działanie nie jest zwykle zalecane w publikacjach naukowych z uwagi na mniejszą czytelność.
+Podpis rysunku wraz z numerem generują się automatycznie, przy czym formatowanie i styl podpisu wynikają z definicji zawartych w szablonie. Domyślnie podpis jest generowany w miejscu, gdzie wstawione zostało polecenie \mintinline{latex}{\caption{Treść}}, stąd istotne jest czy pojawi się ono przed \mintinline{latex}{\includegraphics{nazwa_pliku}}, czy po. Można jednak zmienić to zachowanie stosując bibliotekę \texttt{floatrow}, która umożliwia globalne określenie stylu i lokalizacji podpisów wszystkich obiektów, dzięki czemu niezależnie od kolejności użycia poleceń uzyskać można poprawną lokalizację podpisu. Standardowo rysunki wstawiane są pomiędzy treścią akapitu lub pomiędzy akapitami. Istnieje jednak możliwość wstawienia rysunku w ten sposób, by był on otoczony przez tekst. Stosować w tym celu należy bibliotekę \texttt{wrapfig}. Takie działanie nie jest zwykle zalecane w publikacjach naukowych z uwagi na mniejszą czytelność.
 
-Do rysunków odnosić się można stosując ich nazwę, podaną podczas tworzenia etykiety, za pomocą zapisu \verb|\ref{nazwa_rysunku}|. Należy zaznaczyć, że dla wskazanego przykładu nazwa to \verb|fig:rys_1|. Dodatkowe informacje na temat rysunków znaleźć można w \href{https://www.overleaf.com/learn/latex/Inserting_Images}{dokumentacji} projektu \texttt{Overleaf}.
+Do rysunków odnosić się można stosując ich nazwę, podaną podczas tworzenia etykiety, za pomocą zapisu \mintinline{latex}{\ref{nazwa_rysunku}}. Należy zaznaczyć, że dla wskazanego przykładu nazwa to \verb|fig:rys_1|. Dodatkowe informacje na temat rysunków znaleźć można w \href{https://www.overleaf.com/learn/latex/Inserting_Images}{dokumentacji} projektu \texttt{Overleaf}.
 
 \section{Wstawianie tabel}
 
@@ -171,13 +173,13 @@ $T_{2,0}$       & tekst 3    & tekst 4    & +1.99         \\ \hline
 \makecaption{lst:tables_sample}{Kod źródłowy umożliwiający wygenerowanie tabeli~\ref{tab:tables_sample}}
 \end{listing}
 
-Podobnie, jak w przypadku obrazków, tabele numerowane są automatycznie, a odnosić się do nich można stosując \verb|\ref{nazwa_tabeli}|. W przypadku potrzeby umieszczania długich tabel (takich, w które mogą przechodzić na kolejne strony) zaleca się stosowanie biblioteki \texttt{longtable}. Standardowo nie ma potrzeby rozciągania tabeli, jeśli ta nie zajmuje pełnej szerokości strony. Jeżeli jednak pożądany jest taki efekt, zaleca się stosowanie biblioteki \texttt{tabularx}, przy czym w takim rozwiązaniu stosowanie biblioteki \texttt{siunitx} jest utrudnione.
+Podobnie, jak w przypadku obrazków, tabele numerowane są automatycznie, a odnosić się do nich można stosując \mintinline{latex}{\ref{nazwa_tabeli}}. W przypadku potrzeby umieszczania długich tabel (takich, w które mogą przechodzić na kolejne strony) zaleca się stosowanie biblioteki \texttt{longtable}. Standardowo nie ma potrzeby rozciągania tabeli, jeśli ta nie zajmuje pełnej szerokości strony. Jeżeli jednak pożądany jest taki efekt, zaleca się stosowanie biblioteki \texttt{tabularx}, przy czym w takim rozwiązaniu stosowanie biblioteki \texttt{siunitx} jest utrudnione, lecz nadal możliwe.
 
 Wybór środowiska stosowanego do wstawiania tabel jest zwykle narzucany przez wydawnictwo i opisane w dostarczonym szablonie. Dodatkowe informacje na temat wstawiania i formatowania tabel znaleźć można w \href{https://www.overleaf.com/learn/latex/Tables}{dokumentacji} projektu \texttt{Overleaf}. Tabele można również wstawiać automatycznie, wczytując ich zawartość z pliku tekstowego, co pokazano w dalszej części pracy.
 
 \section{Wstawianie kodu źródłowego}
 
-Fragmenty kodu źródłowego mogą być wstawiane w tekście stosując bibliotekę \texttt{minted}. Formatowanie kodu oraz kolorowanie składni odbywa się automatycznie. Istnieje również opcja wklejania fragmentu kodu z pliku źródłowego, stosując polecenie \verb|\inputminted[firstline = X, lastline = Y]{język}{plik}|. Listingi przywoływać można w tekście identycznie jak tabele i rysunki, stosując zapis \verb|\ref{nazwa_listingu}|. Kod źródłowy przykładowego listingu przedstawiono w listingu~\ref{lst:listing_sample}. Zastosowana opcja \texttt{linenos} aktywuje numerowanie linii.
+Fragmenty kodu źródłowego mogą być wstawiane w tekście stosując bibliotekę \texttt{minted}. Formatowanie kodu oraz kolorowanie składni odbywa się automatycznie. Istnieje również opcja wklejania fragmentu kodu z pliku źródłowego, stosując polecenie \mintinline{latex}{\inputminted[firstline = X, lastline = Y]{język}{plik}}. Listingi przywoływać można w tekście identycznie jak tabele i rysunki, stosując zapis \mintinline{latex}{\ref{nazwa_listingu}}. Kod źródłowy przykładowego listingu przedstawiono w listingu~\ref{lst:listing_sample}. Zastosowana opcja \texttt{linenos} aktywuje numerowanie linii.
 
 \begin{listing}[htb]
 \inputminted{latex}{skrypty/listing_sample.tex}
@@ -186,26 +188,26 @@ Fragmenty kodu źródłowego mogą być wstawiane w tekście stosując bibliotek
 
 \section{Zarządzanie bibliografią}
 
-Stosując system składu \LaTeX{} najczęściej stosuje się bibliografię wczytywaną z zewnętrznego pliku, dla której spis bibliograficzny generowany jest automatycznie. Pozycje literatury cytowane są w tekście stosując polecenie \verb|\cite{nazwa_pozycji}|, co zamienia się w tekście na odnośnik do zadanej pozycji literatury. Przywoływać można również wiele pozycji jednocześnie, stosując w tym celu zapis \verb|\cite{nazwa1, nazwa2}|. Zacytowane w ten sposób pozycje zostaną posortowane automatycznie i zgrupowane, jeśli wymaga tego styl skonfigurowany w ramach stosowanego szablonu. Spis bibliograficzny generowany jest automatycznie i zawiera tylko te pozycje, które przynajmniej raz zostały przywołane w tekście. Oznacza to, że można stosować ten sam obszerny spis w wielu publikacjach. Spis posortowany jest zgodnie z ustawieniami biblioteki \texttt{biblatex}, które zawarte są w dostarczanym przez wydawnictwo szablonie.
+Stosując system składu \LaTeX{} najczęściej stosuje się bibliografię wczytywaną z zewnętrznego pliku, dla której spis bibliograficzny generowany jest automatycznie. Pozycje literatury cytowane są w tekście stosując polecenie \mintinline{latex}{\cite{nazwa_pozycji}}, co zamienia się w tekście na odnośnik do zadanej pozycji literatury. Przywoływać można również wiele pozycji jednocześnie, stosując w tym celu zapis \mintinline{latex}{\cite{nazwa1, nazwa2}}. Zacytowane w ten sposób pozycje zostaną posortowane automatycznie i zgrupowane, jeśli wymaga tego styl skonfigurowany w ramach stosowanego szablonu. Spis bibliograficzny generowany jest automatycznie i zawiera tylko te pozycje, które przynajmniej raz zostały przywołane w tekście. Oznacza to, że można stosować ten sam obszerny spis w wielu publikacjach. Spis posortowany jest zgodnie z ustawieniami biblioteki \texttt{biblatex}, które zawarte są w dostarczanym przez wydawnictwo szablonie.
 
 Plik źródłowy z literaturą, którego przykład przedstawiono w listingu~\ref{lst:biblatex_sample}, należy przygotować w formacie \texttt{BibTeX}. Plik ten jest zwykłym plikiem tekstowym i zawiera informacje o kolejnych pozycjach literatury. Niemal każde pismo oferuje na swojej stronie przycisk \enquote{cytuj}, który umożliwia wygenerowanie wpisu bibliograficznego dla omawianego pliku. Wpis taki wygenerować można również w portalu \enquote{Google Scholar} klikając \enquote{cytuj}, a następnie wybierając opcję \texttt{BibTeX}. Dane zawarte w pliku zawierają informacje o publikacji, które są następnie wykorzystywane podczas generowania spisu.
 
-\begin{listing}[htb]
+\begin{listing}[hbt]
 \inputminted{bibtex}{skrypty/biblatex_sample.bib}
 \makecaption{lst:biblatex_sample}{Przykładowa treść pliku z literaturą}
 \end{listing}
 
-Zależnie od stosowanego w szablonie rozwiązania, spis literatury generuje się poleceniem \verb|\printbibliography|, podając przed rozpoczęciem dokumentu ścieżkę do spisu za pomocą polecenia \verb|\bibliography{nazwa_pliku}|, lub wstawiając w miejscu gdzie ma pojawić się spis polecenie \verb|\bibliography{nazwa_pliku}|. Szczegółowe informacje na temat rodzaju wpisów stosowanych w pliku bibliografii oraz roli pól opisujących te wpisy znaleźć można w \href{https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX}{instrukcji}. Należy zauważyć, że do obsługi bibliografii stosowane mogą być różne biblioteki. Nie jest to jednak istotne z punktu widzenia użytkownika, ponieważ plik ze spisem literatury jest uniwersalny.
+Zależnie od stosowanego w szablonie rozwiązania, spis literatury generuje się poleceniem \mintinline{latex}{\printbibliography}, podając przed rozpoczęciem dokumentu ścieżkę do spisu za pomocą polecenia \mintinline{latex}{\bibliography{nazwa_pliku}}, lub wstawiając w miejscu gdzie ma pojawić się spis polecenie \mintinline{latex}{\bibliography{nazwa_pliku}}. Szczegółowe informacje na temat rodzaju wpisów stosowanych w pliku bibliografii oraz roli pól opisujących te wpisy znaleźć można w \href{https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX}{instrukcji}. Należy zauważyć, że do obsługi bibliografii stosowane mogą być różne biblioteki. Nie jest to jednak istotne z punktu widzenia użytkownika, ponieważ plik ze spisem literatury jest uniwersalny.
 
-Jeżeli wymagane jest umieszczenie fragmentu tekstu w cudzysłowie, stosować należy bibliotekę \texttt{csquotes} oraz \verb|\enquote{cytowany tekst}|, co zamieni się na \enquote{cytowany tekst}. Nie należy samodzielnie wstawiać symbolów cudzysłowów. W przypadku wprowadzania cytatu w postaci nowego bloku tekstu należy zastosować środowisko \texttt{quoting}. Dla przedstawionych w listingu~\ref{lst:biblatex_sample} pozycji cytowania wyglądają następująco~\cite{ldrjro_dwtownerr, mallat_wavelet}.
+Jeżeli wymagane jest umieszczenie fragmentu tekstu w cudzysłowie, stosować należy bibliotekę \texttt{csquotes} oraz \mintinline{latex}{\enquote{cytowany tekst}}, co zamieni się na \enquote{cytowany tekst}. Nie należy samodzielnie wstawiać symbolów cudzysłowów. W przypadku wprowadzania cytatu w postaci nowego bloku tekstu należy zastosować środowisko \texttt{quoting} z biblioteki \texttt{quoting}. Dla przedstawionych w listingu~\ref{lst:biblatex_sample} pozycji cytowania wyglądają następująco~\cite{ldrjro_dwtownerr, mallat_wavelet}.
 
-Podczas cytowania literatury oraz odnoszenia się do rysunków, tabel i równań sugeruje się stosować nierozdzielające spacje. W tym celu należy stosować \enquote{tyldę} zamiast spacji, czyli zamiast \verb|równanie \eqref{numer}| należy użyć \verb|równanie~\eqref{numer}|. Praktyka ta dotyczy zatem przypadków: \verb|\eqref{...}|, \verb|\ref{...}| oraz \verb|\cite{...}|.
+Podczas cytowania literatury oraz odnoszenia się do rysunków, tabel i równań sugeruje się stosować nierozdzielające spacje. W tym celu należy stosować \enquote{tyldę} zamiast spacji, czyli zamiast \mintinline{latex}{równanie \eqref{numer}} należy użyć \mintinline{latex}{równanie~\eqref{numer}}. Praktyka ta dotyczy zatem przypadków: \mintinline{latex}{\eqref{...}}, \mintinline{latex}{\ref{...}} oraz \mintinline{latex}{\cite{...}}. Rozwiązanie to zapewnia, że odnośnik nie zostanie przeniesiony do nowej linii tekstu.
 
 \section{Dodatkowe możliwości}
 
-Na podstawie niniejszej pracy zauważyć można, jaka jakość składu osiągana jest stosując \LaTeX{}. Podczas kompilacji program ma możliwość analizy tekstu i wstawianych obiektów, na podstawie której korygować może między innymi odstępy pomiędzy obiektami, miejsce ich wstawiania oraz dzielenie wyrazów. Przykładowo ustawiając za pomocą polecenia \verb|\setlength{\parskip}{12pt plus 5pt minus 2pt}| zadany odstęp pomiędzy akapitami ustalone zostaje działanie: ustaw zadany odstęp na \qty{12}{pt} przy czym dopuszczaj zwiększenie go maksymalnie o \qty{5}{pt} lub zmniejszenie o maksymalnie \qty{2}{pt} w celu osiągnięcia najlepszej jakości składu. Korekta odstępów umożliwia między innymi zapewnienie jednolitego poziomu tekstu na ostatniej linii strony.
+Na podstawie niniejszej pracy zauważyć można, jaka jakość składu osiągana jest stosując \LaTeX{}. Podczas kompilacji program ma możliwość analizy tekstu i wstawianych obiektów, na podstawie której korygować może między innymi odstępy pomiędzy obiektami, miejsce ich wstawiania oraz dzielenie wyrazów. Przykładowo ustawiając za pomocą polecenia\mintinline{latex}{\setlength{\parskip}{12pt plus 5pt minus 2pt}} zadany odstęp pomiędzy akapitami ustalone zostaje działanie: ustaw zadany odstęp na \qty{12}{pt} przy czym dopuszczaj zwiększenie go maksymalnie o \qty{5}{pt} lub zmniejszenie o maksymalnie \qty{2}{pt} w celu osiągnięcia najlepszej jakości składu. Korekta odstępów umożliwia między innymi zapewnienie jednolitego poziomu tekstu na ostatniej linii strony.
 
-Jakość składu obliczana jest na podstawie parametru \verb|\badness|, gdzie dąży się do minimalizacji wartości tego parametru. Każde niepożądane działanie (przykładowo pozostawienie pustej przestrzeni na stronie) skutkuje zwiększeniem wartości tego parametru. Wartość \verb|\badness| można również ręcznie przypisać do określonych działań, przykładowo do decyzji o dzieleniu wyrazu lub pozostawieniu sieroty, wdowy, bękarta lub szewca. Naturalnie, istnieją sytuacje w których to edytor musi samodzielnie skorygować skład, na przykład w przypadku wstawiania dużej liczby rysunków lub tabel, których rozmiar jest istotnie duży. Bardzo często jednak to wydawnictwo wykonuje ostateczną korektę składu, którą autor tekstu zatwierdza na samym końcu procesu publikacyjnego.
+Jakość składu obliczana jest na podstawie parametru \mintinline{latex}{\badness}, gdzie dąży się do minimalizacji wartości tego parametru. Każde niepożądane działanie (przykładowo pozostawienie pustej przestrzeni na stronie) skutkuje zwiększeniem wartości tego parametru. Wartość \mintinline{latex}{\badness} można również ręcznie przypisać do określonych działań, przykładowo do decyzji o dzieleniu wyrazu lub pozostawieniu sieroty, wdowy, bękarta lub szewca. Naturalnie, istnieją sytuacje w których to edytor musi samodzielnie skorygować skład, na przykład w przypadku wstawiania dużej liczby rysunków lub tabel, których rozmiar jest istotnie duży. Bardzo często jednak to wydawnictwo wykonuje ostateczną korektę składu, którą autor tekstu zatwierdza na samym końcu procesu publikacyjnego.
 
 Ciekawe opcje oferuje również biblioteka \texttt{babel}. Standardowo używana jest ona aby zapewnić właściwą lokalizację dokumentu. W ten sposób dla domyślnych i gotowych szablonów istnieje możliwość automatycznego przetłumaczenia między innymi etykiet podpisów pod obiektami oraz nagłówków standardowych rozdziałów, jak spis treści czy bibliografia. Dodatkową funkcją biblioteki, dostępną podczas stosowania kompilatora \texttt{LuaTeX} jest opcja \verb|transforms = oneletter.nobreak|, która dla języka polskiego zapewnia przeniesienie wszystkich pojedynczych liter występujących w zdaniu do nowej linii, jeśli te miałyby pozostać samotnie na jej końcu. Funkcja ta jest niedostępna w żadnym typowym edytorze tekstu.
 
@@ -227,12 +229,15 @@ Poniżej wymieniono istotne biblioteki, które stosować można niezależnie od 
 \item \texttt{\href{https://ctan.org/pkg/hyperref}{hyperref}} do generowania łącz i odnośników w dokumencie,
 \item \texttt{\href{https://ctan.org/pkg/pgfplots}{pgfplots}} do generowania wykresów bezpośrednio w dokumencie,
 \item \texttt{\href{https://ctan.org/pkg/pgfplots}{pgfplotstable}} do wczytywania tabel z pliku tekstowego,
+\item \texttt{\href{https://ctan.org/pkg/csvsimple}{csvsimple}} jako łatwiejszą w obsłudze alternatywę \texttt{pgfplotstable},
+\item \texttt{\href{https://ctan.org/pkg/booktabs}{booktabs}} do jednolitego formatowania obramowania tabel,
 \item \texttt{\href{https://ctan.org/pkg/fancyhdr}{fancyhdr}} do formatowania nagłówka i stopki strony,
 \item \texttt{\href{https://ctan.org/pkg/csquotes}{csquotes}} do wstawiania cytatów w odpowiednim formacie,
 \item \texttt{\href{https://ctan.org/pkg/caption}{caption}} do formatowania treści podpisów wstawianych obiektów,
 \item \texttt{\href{https://ctan.org/pkg/floatrow}{floatrow}} do formatowania pozycji podpisów oraz wstawianych obiektów,
 \item \texttt{\href{https://ctan.org/pkg/titlesec}{titlesec}} do formatowania tytułów rozdziałów oraz podrozdziałów,
-\item \texttt{\href{https://ctan.org/pkg/minted}{minted}} do wstawiania i automatycznego formatowania kodu źródłowego.
+\item \texttt{\href{https://ctan.org/pkg/minted}{minted}} do wstawiania i automatycznego formatowania kodu źródłowego,
+\item \texttt{\href{https://ctan.org/pkg/xfp}{xfp}} dla możliwości wykonywania obliczeń podczas kompilacji.
 \end{itemize}
 
-Wszystkie biblioteki dostępne są na \href{https://ctan.org/}{stronie internetowej} projektu \texttt{CTAN}, przy czym stanowią one kolejne składniki pakietu \texttt{TeX Live} i są dostępne również w projekcie \texttt{Overleaf}. należy zaznaczyć, że funkcjonalność bibliotek może być uwarunkowana stosowanym kompilatorem oraz wersją pakietu \texttt{TeX Live}. Wiele z wymienionych pakietów jest często ładowanych domyślnie przez stosowany szablon.
+Wszystkie biblioteki dostępne są na \href{https://ctan.org/}{stronie internetowej} projektu \texttt{CTAN}, przy czym stanowią one kolejne składniki pakietu \texttt{TeX Live} i są dostępne również w projekcie \texttt{Overleaf}. należy zaznaczyć, że funkcjonalność bibliotek może być uwarunkowana stosowanym kompilatorem oraz wersją pakietu \texttt{TeX Live}. Wiele z wymienionych pakietów jest często ładowanych domyślnie przez stosowany szablon. Wszystkie pakiety dostępne w repozytorium posiadają odpowiednią dokumentację i przykłady użycia. Bardzo wiele z nich jest dodatkowo opisanych w samouczkach oraz dokumentacji projektu \texttt{Overleaf}. Wiele bibliotek zapewnia bardzo podobną funkcjonalność, dzięki czemu użytkownik może zdecydować się na wybór przystępnego dla siebie rozwiązania.

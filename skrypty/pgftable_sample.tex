@@ -1,0 +1,36 @@
+\begin{table}[htb]
+\pgfplotstabletypeset[
+	header = has colnames,
+	col sep = semicolon, 
+	sort, sort key = unc,
+	columns = {nq, xmax, xmin, nvar, unc},
+	columns/nq/.style = {
+		column name = \textbf{$n_q$},
+		dec sep align
+	},
+	columns/xmax/.style = {
+		column name = \textbf{$x_{\max}$, \unit{V}},
+		fixed, fixed zerofill,
+		precision = 2,
+	},
+	columns/xmin/.style = {
+		column name = \textbf{$x_{\min}$, \unit{V}},
+		fixed, fixed zerofill, 
+		precision = 2,
+	},
+	columns/nvar/.style = {
+		column name = \textbf{$\sigma_n^2$, \unit{mV^2}},
+		fixed, fixed zerofill, 
+		precision = 1,
+		multiply by = 1000,
+	},
+	columns/unc/.style = {
+		column name = \textbf{Niepewność, \unit{mV}},
+		fixed, 
+		precision = 0,
+		multiply by = 1000,
+	}
+]{nazwa_pliku_z_danymi}
+\caption{Podpis tabeli}
+\label{nazwa_tabeli}
+\end{table}

@@ -25,6 +25,8 @@
 \RequirePackage{indentfirst}
 \RequirePackage{longtable}
 \RequirePackage{emptypage}
+\RequirePackage{csvsimple}
+\RequirePackage{gincltex}
 \RequirePackage{pgfplots}
 \RequirePackage{floatrow}
 \RequirePackage{interval}
@@ -36,6 +38,7 @@
 \RequirePackage{multirow}
 \RequirePackage{enumitem}
 \RequirePackage{textcomp}
+\RequirePackage{booktabs}
 \RequirePackage{lmodern}
 \RequirePackage{tocloft}
 \RequirePackage{parskip}
@@ -44,7 +47,9 @@
 \RequirePackage{minted}
 \RequirePackage{xpatch}
 \RequirePackage{ifthen}
+\RequirePackage{grfext}
 \RequirePackage{xurl}
+\RequirePackage{xfp}
 
 \DeclareSIUnit[quantity-product=-]\bitOwych{bitowych}
 \DeclareSIUnit[quantity-product=-]\bitOwego{bitowego}
@@ -60,6 +65,8 @@
 \DeclareSIUnit[quantity-product=]\percent{\char"0025}
 \DeclareSIUnit\degreeCelsius{\char"2103}
 
+\AppendGraphicsExtensions{.tex,.TEX}
+
 \DefineBibliographyStrings{polish}{
 	urlseen = {dostęp},
 	in      = {}
@@ -68,12 +75,25 @@
 \usepgfplotslibrary{groupplots, statistics, units, dateplot}
 
 \pgfplotsset{
-	every axis/.append style = {
-		/pgfplots/typeset ticklabel/.code = {
-			\pgfmathparse{\tick}\num[zero-decimal-to-integer]{\pgfmathresult}
-		}
+	compat = newest,
+	/pgf/number format/use comma,
+	/pgf/number format/read comma as period,
+	/pgf/number format/set thousands separator = {},
+}
+
+\pgfplotstableset{
+	every head row/.style = {
+		before row = \toprule,
+		after row = \midrule
 	},
-	compat = newest
+	every last row/.style = {
+		after row = \bottomrule
+	}
+}
+
+\csvset{
+	csvsorter command = java -jar csvsorter.jar,
+	csvsorter log = budowa/csvsorter.log,
 }
 
 \setminted{linenos, breaklines, tabsize = 2}
@@ -104,11 +124,11 @@
 \renewcommand\bottomfraction{0.35}
 \renewcommand\textfraction{0.25}
 
-\newcommand{\hugelinespacing}{\renewcommand{\baselinestretch}{1.60} \normalsize}
+\newcommand{\hugelinespacing}{\renewcommand{\baselinestretch}{1.60} \normalsize plus 3pt}
 
-\newcommand{\normallinespacing}{\renewcommand{\baselinestretch}{1.30} \normalsize}
-\newcommand{\mediumlinespacing}{\renewcommand{\baselinestretch}{1.00} \normalsize}
-\newcommand{\narrowlinespacing}{\renewcommand{\baselinestretch}{0.70} \normalsize}
+\newcommand{\normallinespacing}{\renewcommand{\baselinestretch}{1.30} \normalsize plus 3pt}
+\newcommand{\mediumlinespacing}{\renewcommand{\baselinestretch}{1.00} \normalsize plus 3pt}
+\newcommand{\narrowlinespacing}{\renewcommand{\baselinestretch}{0.70} \normalsize plus 3pt}
 
 \newcommand{\makecaption}[2]{\caption{\label{#1}#2}}
 \newcommand{\emb}[1]{\left(#1\right)}
@@ -212,23 +232,24 @@
 
 \sisetup
 {
-	retain-explicit-plus = true,
-	reset-text-family    = false,
-	reset-text-series    = false,
-	reset-text-shape     = false,
-	space-before-unit    = true,
-	tight-spacing        = true,
-	use-xspace           = true,
-	per-mode             = fraction,
-	inline-per-mode      = fraction,
-	list-exponents       = combine-bracket,
-	list-units           = single,
-	range-exponents      = combine-bracket,
-	range-units          = bracket,
-	range-phrase         = \,;\,,
-	quantity-product     = ~,
-	exponent-product     = \cdot,
-	mode                 = match
+	retain-explicit-plus   = true,
+	reset-text-family      = false,
+	reset-text-series      = false,
+	reset-text-shape       = false,
+	space-before-unit      = true,
+	tight-spacing          = true,
+	use-xspace             = true,
+	per-mode               = fraction,
+	inline-per-mode        = fraction,
+	uncertainty-mode       = separate,
+	list-exponents         = combine-bracket,
+	list-units             = single,
+	range-exponents        = combine-bracket,
+	range-units            = bracket,
+	range-phrase           = \,;\,,
+	quantity-product       = ~,
+	exponent-product       = \cdot,
+	mode                   = match
 }
 
 \intervalconfig
@@ -261,3 +282,5 @@
 \delimitershortfall=-1pt
 \delimiterfactor=900
 % --------------------
+
+\flushbottom

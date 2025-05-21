@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+	\begin{axis}[
+		xlabel = {Wartości $x$, \unit{\degreeCelsius}}, % Opis osi X
+		ylabel = {Wartości funkcji, \unit{V}},          % Opis osi Y
+		width = 15cm, height = 7cm,                     % Wymiary wykresu
+		xmin = 0, xmax = 20,                            % Ograniczenia osi X
+		ymin = -1, ymax = 1,                            % Ograniczenia osi Y
+		grid style = {dotted, gray},                    % Styl siatki
+		grid = both,                                    % Siatka pomocnicza
+	]
+	\addplot[blue, domain = 0:20, samples = 100]{
+		exp(-0.1 * x) * sin(deg(x))                     % Treść funkcji
+	};
+	\end{axis}
+\end{tikzpicture}
