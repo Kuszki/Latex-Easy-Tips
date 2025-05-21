@@ -124,11 +124,11 @@
 \renewcommand\bottomfraction{0.35}
 \renewcommand\textfraction{0.25}
 
-\newcommand{\hugelinespacing}{\renewcommand{\baselinestretch}{1.60} \normalsize plus 3pt}
+\newcommand{\hugelinespacing}{\renewcommand{\baselinestretch}{1.60} \normalsize}
 
-\newcommand{\normallinespacing}{\renewcommand{\baselinestretch}{1.30} \normalsize plus 3pt}
-\newcommand{\mediumlinespacing}{\renewcommand{\baselinestretch}{1.00} \normalsize plus 3pt}
-\newcommand{\narrowlinespacing}{\renewcommand{\baselinestretch}{0.70} \normalsize plus 3pt}
+\newcommand{\normallinespacing}{\renewcommand{\baselinestretch}{1.30} \normalsize}
+\newcommand{\mediumlinespacing}{\renewcommand{\baselinestretch}{1.00} \normalsize}
+\newcommand{\narrowlinespacing}{\renewcommand{\baselinestretch}{0.70} \normalsize}
 
 \newcommand{\makecaption}[2]{\caption{\label{#1}#2}}
 \newcommand{\emb}[1]{\left(#1\right)}

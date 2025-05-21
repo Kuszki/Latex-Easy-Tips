@@ -235,11 +235,11 @@ Alternatywą dla programu \texttt{GNU Octave} może być program \texttt{gnuplot
 
 Dla przedstawionego rysunku wszystkie wprowadzone opisy oraz wartości są bezpośrednio przetwarzane podczas kompilacji, stąd możliwe jest stosowanie dowolnych poleceń zapewnianych przez stosowane w dokumencie biblioteki. Do formatowania wartości etykiet osi wykorzystano bibliotekę \texttt{siunitx}, aby zachować jednolity z pozostałą częścią manuskryptu format. Można zauważyć, że stosowanie \texttt{gnuplot} zapewnia większą jakość wykresów przy mniejszym stopniu skomplikowania ich sporządzania, a także lepiej integruje się ze stosowaniem poleceń \LaTeX{} w porównaniu do stosowania \texttt{GNU Octave}. Wadą tego rozwiązania jest jednak brak bezpośredniej możliwości wykonywania symulacji w tym programie. Istnieje jednak opcja ładowania danych z pliku tekstowego.
 
-Wykresy generować można również bezpośrednio w dokumencie, stosując w tym celu bibliotekę \texttt{pgfplots}. Rozwiązanie to najlepiej integruje się z dokumentem, a dodatkowo wykresy są automatycznie generowane podczas jego kompilacji, co wyklucza konieczność ręcznego uruchamiania generujących ich skryptów. Przykład wykresu, który generowany jest na podstawie listingu~\ref{lst:pgfplots_demo} przedstawia rysunek~\ref{fig:pgfplots_demo}, przy czym osiągnięty efekt jest podobny do rysunku~\ref{fig:gnuplot_demo}. Wartości osi są formatowane zgodnie z ustawieniami przedstawionymi wcześniej w listingu~\ref{lst:pgfplots_config}. Tworząc wykres stosować można wszystkie funkcje dostępne w dokumencie. Wykresy sporządzone w ten sposób cechują się najwyższą jakością.
+Wykresy generować można również bezpośrednio w dokumencie, stosując w tym celu bibliotekę \texttt{pgfplots}. Rozwiązanie to najlepiej integruje się z dokumentem. Wykresy są automatycznie generowane podczas kompilacji, co wyklucza konieczność ręcznego uruchamiania generujących ich skryptów, natomiast wydłuża czas potrzebny do budowy projektu. Wartości osi są formatowane zgodnie z ustawieniami przedstawionymi wcześniej w listingu~\ref{lst:pgfplots_config}. Tworząc wykres stosować można wszystkie funkcje dostępne w dokumencie, stąd wykresy sporządzone w ten sposób cechują się najwyższą jakością. Przykład wykresu, który generowany jest na podstawie listingu~\ref{lst:pgfplots_demo} przedstawia rysunek~\ref{fig:pgfplots_demo}, przy czym osiągnięty efekt jest podobny do tego z rysunku~\ref{fig:gnuplot_demo}.
 
 \begin{listing}[hbt]
 \inputminted{latex}{obrazki/pgfplots_demo.tex}
-\makecaption{lst:pgfplots_demo}{Skrypt programu \texttt{gnuplot} generujący rysunek~\ref{fig:gnuplot_demo}}
+\makecaption{lst:pgfplots_demo}{Skrypt biblioteki \texttt{pgfplots} generujący rysunek~\ref{fig:gnuplot_demo}}
 \end{listing}
 
 \begin{figure}[!htb]
@@ -247,6 +247,8 @@ Wykresy generować można również bezpośrednio w dokumencie, stosując w tym 
 \makecaption{fig:pgfplots_demo}{Rysunek wygenerowany stosując bibliotekę \texttt{pgfplots} za pomocą skryptu~\ref{lst:pgfplots_demo}}
 \end{figure}
 
-asdasd asdasdasd
+asdasdasdas asdasdasd
+
+\section{Kontrola wersji i śledzenie zmian}
 
 \section{Uwagi końcowe}
