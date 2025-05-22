@@ -73,7 +73,7 @@
 	in      = {}
 }
 
-\usepgfplotslibrary{groupplots, statistics, units, dateplot}
+\usepgfplotslibrary{groupplots, statistics, units, dateplot, external}
 
 \pgfplotsset{
 	compat = newest,

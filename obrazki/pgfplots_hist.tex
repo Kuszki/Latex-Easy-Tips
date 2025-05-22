@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\begin{axis}[
+		width = 15cm, height = 7cm,                    % Wymiary wykresu
+		ylabel = {Liczba wystąpień},                   % Etykieta osi Y
+		xlabel = {Wartość błędu},                      % Etykieta osi X
+		xmin = -0.15, xmax = 0.15,                     % Ograniczenia osi X
+		xtick distance = 0.05,                         % Odstęp wartości X
+		tick label style = {/pgf/number format/fixed}, % Styl liczb
+		grid style = {dotted, gray},                   % Styl siatki
+		enlargelimits = false,                         % Zachowaj zakres
+		grid = both,                                   % Siatka pomocnicza
+		area style,                                    % Styl słupków
+	]
+	\addplot+ [                                      % Dodaj wykres
+		hist = {
+			bins = 150,                                  % Liczba słupków
+		},   
+		draw = none,                                   % Bez obramowania
+		fill = darkgray,                               % Kolor słupków
+	] table [y index = 0]                            % Źródło danych
+		{dodatki/histogram.dat};                       % Ścieżka pliku
+	\end{axis}
+\end{tikzpicture}

@@ -233,28 +233,15 @@ Alternatywą dla programu \texttt{GNU Octave} może być program \texttt{gnuplot
 \makecaption{fig:gnuplot_demo}{Rysunek wygenerowany w programie \texttt{gnuplot} za pomocą skryptu~\ref{lst:gnuplot_demo}}
 \end{figure}
 
-Dla przedstawionego rysunku wszystkie wprowadzone opisy oraz wartości są bezpośrednio przetwarzane podczas kompilacji, stąd możliwe jest stosowanie dowolnych poleceń zapewnianych przez stosowane w dokumencie biblioteki. Do formatowania wartości etykiet osi wykorzystano bibliotekę \texttt{siunitx}, aby zachować jednolity z pozostałą częścią manuskryptu format. Można zauważyć, że stosowanie \texttt{gnuplot} zapewnia większą jakość wykresów przy mniejszym stopniu skomplikowania ich sporządzania, a także lepiej integruje się ze stosowaniem poleceń \LaTeX{} w porównaniu do stosowania \texttt{GNU Octave}. Wadą tego rozwiązania jest jednak brak bezpośredniej możliwości wykonywania symulacji w tym programie. Istnieje jednak opcja ładowania danych z pliku tekstowego.
+Dla przedstawionego rysunku wszystkie wprowadzone opisy oraz wartości są bezpośrednio przetwarzane podczas kompilacji, stąd możliwe jest stosowanie dowolnych poleceń zapewnianych przez stosowane w dokumencie biblioteki. Do formatowania wartości etykiet osi wykorzystano bibliotekę \texttt{siunitx}, aby zachować jednolity z pozostałą częścią manuskryptu format. Można zauważyć, że stosowanie \texttt{gnuplot} zapewnia większą jakość wykresów przy mniejszym stopniu skomplikowania ich sporządzania, a także lepiej integruje się ze stosowaniem poleceń \LaTeX{} w porównaniu do stosowania \texttt{GNU Octave}. Wadą tego rozwiązania jest jednak brak bezpośredniej możliwości wykonywania symulacji w tym programie. Istnieje jednak opcja ładowania danych z pliku tekstowego, stąd dane te przygotować można w programie \texttt{GNU Octave}, a następnie wykreślić stosując program \texttt{gnuplot}.
 
-Stosując bibliotekę \texttt{gnuplottex} istnieje możliwość automatycznego generowania wykresów programu \texttt{gnuplot} podczas kompilacji dokumentu. Kod źródłowy osadzony być może bezpośrednio w dokumencie, stosując środowisko \texttt{gnuplot} lub ładowany z pliku stosując polecenie \mintinline{latex}{\gnuplotloadfile[terminal = tikz]{nazwa_pliku}}. Ładując bibliotekę wraz z opcją \texttt{siunitx} wszystkie wartości są formatowane z użyciem biblioteki \texttt{siunitx}, stąd nie ma potrzeby ręcznego ich formatowania, co pokazano w listingu~\ref{fig:gnuplot_demo}. W sporządzonym skrypcie nie należy dodatkowo wskazywać terminala oraz pliku wyjściowego. Listing~\ref{lst:gnuplot_embed} umożliwia wstawienie obrazka generowanego przez program \texttt{gnuplot} podczas kompilacji dokumentu, przy czym wygenerowany w ten sposób rysunek jest identyczny, jak rysunek~\ref{fig:gnuplot_demo}.
+Stosując bibliotekę \texttt{gnuplottex} istnieje również możliwość automatycznego generowania wykresów programu \texttt{gnuplot} podczas kompilacji dokumentu. Kod źródłowy osadzać można bezpośrednio w dokumencie, stosując środowisko \texttt{gnuplot}, lub ładować z pliku, stosując polecenie \mintinline{latex}{\gnuplotloadfile{nazwa_pliku}}. Stosując omawiane polecenie i środowisko należy w opcjach przekazać rodzaj terminala oraz jego parametry. Ładując bibliotekę wraz z opcją \texttt{siunitx} wszystkie wartości są automatycznie formatowane z użyciem biblioteki \texttt{siunitx}, stąd nie ma potrzeby ręcznego ich formatowania, co miało miejsce w listingu~\ref{fig:gnuplot_demo}. W sporządzonym skrypcie nie należy dodatkowo wskazywać terminala oraz pliku wyjściowego -- opcje te są przekazywane automatycznie.
 
-\begin{listing}[hbt]
-\inputminted{latex}{obrazki/gnuplot_embed.tex}
-\makecaption{lst:gnuplot_embed}{Skrypt programu \texttt{gnuplot} ładowany przez bibliotekę \texttt{gnuplottex}}
-\end{listing}
-
-\begin{figure}[!htb]
-\begin{gnuplot}[terminal = tikz, terminaloptions = {size 15.5, 7}]
-	f(x) = exp(-0.1 * x) * sin(x)
-	plot f(x) title 'Funkcja $f(x)$' lc 'blue'
-\end{gnuplot}
-\makecaption{fig:testxxx}{TEST}
-\end{figure}
-
-Wykresy generować można również bezpośrednio w dokumencie, stosując w tym celu bibliotekę \texttt{pgfplots}. Rozwiązanie to najlepiej integruje się z dokumentem. Wykresy są automatycznie generowane podczas kompilacji, co wyklucza konieczność ręcznego uruchamiania generujących ich skryptów, natomiast wydłuża czas potrzebny do budowy projektu. Wartości osi są formatowane zgodnie z ustawieniami przedstawionymi wcześniej w listingu~\ref{lst:pgfplots_config}. Tworząc wykres stosować można wszystkie funkcje dostępne w dokumencie, stąd wykresy sporządzone w ten sposób cechują się najwyższą jakością. Przykład wykresu, który generowany jest na podstawie listingu~\ref{lst:pgfplots_demo} przedstawia rysunek~\ref{fig:pgfplots_demo}, przy czym osiągnięty efekt jest podobny do tego z rysunku~\ref{fig:gnuplot_demo}.
+Wykresy bezpośrednio w dokumencie generować można również stosując w tym celu bibliotekę \texttt{pgfplots}. Rozwiązanie to najlepiej integruje się z dokumentem. Wykresy są automatycznie generowane podczas kompilacji, co wyklucza konieczność ręcznego uruchamiania generujących ich skryptów, natomiast wydłuża czas potrzebny do budowy projektu. Wartości osi są formatowane zgodnie z ustawieniami przedstawionymi wcześniej w listingu~\ref{lst:pgfplots_config}. Tworząc wykres stosować można wszystkie funkcje i biblioteki dostępne w dokumencie, stąd wykresy sporządzone w ten sposób cechują się najwyższą jakością. Przykład wykresu, który generowany jest na podstawie listingu~\ref{lst:pgfplots_demo} przedstawia rysunek~\ref{fig:pgfplots_demo}, przy czym osiągnięty efekt jest podobny do tego z rysunku~\ref{fig:gnuplot_demo}. Stosując bibliotekę \texttt{pgfplots}, podobnie jak w przypadku programu \texttt{gnuplot}, istnieje również możliwość ładowania danych z pliku. W listingu~\ref{lst:pgfplots_hist} przedstawiono przykład generujący histogram dla wartości realizacji sygnału błędu zapisywanych do pliku tekstowego w ramach eksperymentu przedstawionego w listingu~\ref{lst:octave_adcbatch}. Wygenerowany w ten sposób histogram przedstawiono na rysunku~\ref{fig:pgfplots_hist}.
 
 \begin{listing}[hbt]
 \inputminted{latex}{obrazki/pgfplots_demo.tex}
-\makecaption{lst:pgfplots_demo}{Skrypt biblioteki \texttt{pgfplots} generujący rysunek~\ref{fig:gnuplot_demo}}
+\makecaption{lst:pgfplots_demo}{Skrypt biblioteki \texttt{pgfplots} generujący rysunek~\ref{fig:pgfplots_demo}}
 \end{listing}
 
 \begin{figure}[!htb]
@@ -262,7 +249,15 @@ Wykresy generować można również bezpośrednio w dokumencie, stosując w tym 
 \makecaption{fig:pgfplots_demo}{Rysunek wygenerowany stosując bibliotekę \texttt{pgfplots} za pomocą skryptu~\ref{lst:pgfplots_demo}}
 \end{figure}
 
-asdasdasdas asdasdasd
+\begin{listing}[p]
+\inputminted{latex}{obrazki/pgfplots_hist.tex}
+\makecaption{lst:pgfplots_hist}{Skrypt biblioteki \texttt{pgfplots} generujący rysunek~\ref{fig:pgfplots_hist}}
+\end{listing}
+
+\begin{figure}[p]
+\includegraphics{obrazki/pgfplots_hist}
+\makecaption{fig:pgfplots_hist}{Rysunek wygenerowany stosując bibliotekę \texttt{pgfplots} za pomocą skryptu~\ref{lst:pgfplots_hist}}
+\end{figure}
 
 \section{Kontrola wersji i śledzenie zmian}
 
