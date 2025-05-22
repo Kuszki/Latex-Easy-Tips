@@ -237,7 +237,9 @@ Dla przedstawionego rysunku wszystkie wprowadzone opisy oraz wartości są bezpo
 
 Stosując bibliotekę \texttt{gnuplottex} istnieje również możliwość automatycznego generowania wykresów programu \texttt{gnuplot} podczas kompilacji dokumentu. Kod źródłowy osadzać można bezpośrednio w dokumencie, stosując środowisko \texttt{gnuplot}, lub ładować z pliku, stosując polecenie \mintinline{latex}{\gnuplotloadfile{nazwa_pliku}}. Stosując omawiane polecenie i środowisko należy w opcjach przekazać rodzaj terminala oraz jego parametry. Ładując bibliotekę wraz z opcją \texttt{siunitx} wszystkie wartości są automatycznie formatowane z użyciem biblioteki \texttt{siunitx}, stąd nie ma potrzeby ręcznego ich formatowania, co miało miejsce w listingu~\ref{fig:gnuplot_demo}. W sporządzonym skrypcie nie należy dodatkowo wskazywać terminala oraz pliku wyjściowego -- opcje te są przekazywane automatycznie.
 
-Wykresy bezpośrednio w dokumencie generować można również stosując w tym celu bibliotekę \texttt{pgfplots}. Rozwiązanie to najlepiej integruje się z dokumentem. Wykresy są automatycznie generowane podczas kompilacji, co wyklucza konieczność ręcznego uruchamiania generujących ich skryptów, natomiast wydłuża czas potrzebny do budowy projektu. Wartości osi są formatowane zgodnie z ustawieniami przedstawionymi wcześniej w listingu~\ref{lst:pgfplots_config}. Tworząc wykres stosować można wszystkie funkcje i biblioteki dostępne w dokumencie, stąd wykresy sporządzone w ten sposób cechują się najwyższą jakością. Przykład wykresu, który generowany jest na podstawie listingu~\ref{lst:pgfplots_demo} przedstawia rysunek~\ref{fig:pgfplots_demo}, przy czym osiągnięty efekt jest podobny do tego z rysunku~\ref{fig:gnuplot_demo}. Stosując bibliotekę \texttt{pgfplots}, podobnie jak w przypadku programu \texttt{gnuplot}, istnieje również możliwość ładowania danych z pliku. W listingu~\ref{lst:pgfplots_hist} przedstawiono przykład generujący histogram dla wartości realizacji sygnału błędu zapisywanych do pliku tekstowego w ramach eksperymentu przedstawionego w listingu~\ref{lst:octave_adcbatch}. Wygenerowany w ten sposób histogram przedstawiono na rysunku~\ref{fig:pgfplots_hist}.
+Wykresy bezpośrednio w dokumencie generować można również stosując w tym celu bibliotekę \texttt{pgfplots}. Rozwiązanie to najlepiej integruje się z dokumentem. Wykresy są automatycznie generowane podczas kompilacji, co wyklucza konieczność ręcznego uruchamiania generujących ich skryptów, natomiast wydłuża czas potrzebny do budowy projektu. Wartości osi są formatowane zgodnie z ustawieniami przedstawionymi wcześniej w listingu~\ref{lst:pgfplots_config}. Tworząc wykres stosować można wszystkie funkcje i biblioteki dostępne w dokumencie, stąd wykresy sporządzone w ten sposób cechują się najwyższą jakością. Przykład wykresu, który generowany jest na podstawie listingu~\ref{lst:pgfplots_demo} przedstawia rysunek~\ref{fig:pgfplots_demo}, przy czym osiągnięty efekt jest podobny do tego z rysunku~\ref{fig:gnuplot_demo}.
+
+Stosując bibliotekę \texttt{pgfplots}, podobnie jak w przypadku programu \texttt{gnuplot}, istnieje również możliwość ładowania danych z pliku. W listingu~\ref{lst:pgfplots_hist} przedstawiono przykład generujący histogram dla wartości realizacji sygnału błędu zapisywanych do pliku tekstowego w ramach eksperymentu przedstawionego w listingu~\ref{lst:octave_adcbatch}. Wygenerowany w ten sposób histogram przedstawiono na rysunku~\ref{fig:pgfplots_hist}.
 
 \begin{listing}[hbt]
 \inputminted{latex}{obrazki/pgfplots_demo.tex}
@@ -258,6 +260,9 @@ Wykresy bezpośrednio w dokumencie generować można również stosując w tym c
 \includegraphics{obrazki/pgfplots_hist}
 \makecaption{fig:pgfplots_hist}{Rysunek wygenerowany stosując bibliotekę \texttt{pgfplots} za pomocą skryptu~\ref{lst:pgfplots_hist}}
 \end{figure}
+
+asdasdasdasd
+asdasdasd
 
 \section{Kontrola wersji i śledzenie zmian}
 

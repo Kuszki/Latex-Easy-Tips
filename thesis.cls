@@ -49,6 +49,7 @@
 \RequirePackage{xpatch}
 \RequirePackage{ifthen}
 \RequirePackage{grfext}
+\RequirePackage{tikz}
 \RequirePackage{xurl}
 \RequirePackage{xfp}
 
@@ -284,4 +285,6 @@
 \delimiterfactor=900
 % --------------------
 
+\usetikzlibrary{external}
+\tikzexternalize
 \flushbottom

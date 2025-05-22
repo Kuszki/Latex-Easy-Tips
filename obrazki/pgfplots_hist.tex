@@ -7,17 +7,17 @@
 		xtick distance = 0.05,                         % Odstęp wartości X
 		tick label style = {/pgf/number format/fixed}, % Styl liczb
 		grid style = {dotted, gray},                   % Styl siatki
-		enlargelimits = false,                         % Zachowaj zakres
+		enlargelimits = false,                         % Zachowaj zakres osi
+		enlarge y limits = upper,                      % poza górnym osi Y
 		grid = both,                                   % Siatka pomocnicza
 		area style,                                    % Styl słupków
 	]
-	\addplot+ [                                      % Dodaj wykres
+	\addplot [                                       % Dodaj wykres
 		hist = {
 			bins = 150,                                  % Liczba słupków
 		},   
 		draw = none,                                   % Bez obramowania
 		fill = darkgray,                               % Kolor słupków
-	] table [y index = 0]                            % Źródło danych
-		{dodatki/histogram.dat};                       % Ścieżka pliku
+	] table [y index = 0]{dodatki/histogram.dat};    % Źródło danych
 	\end{axis}
 \end{tikzpicture}
