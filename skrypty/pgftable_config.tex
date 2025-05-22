@@ -1,9 +1,9 @@
 \pgfplotstableset{
-	every head row/.style = {
-		before row = \toprule,
-		after row = \midrule
+	every head row/.style = {    % Dla każdego nagłówka tabeli
+		before row = \toprule,     % dodaj górną linię oraz
+		after row = \midrule       % dodaj linię na dole
 	},
-	every last row/.style = {
-		after row = \bottomrule
+	every last row/.style = {    % Dla ostatniego wiersza
+		after row = \bottomrule    % dodaj dolną linię
 	}
 }

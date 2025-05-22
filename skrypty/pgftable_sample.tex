@@ -1,36 +1,36 @@
 \begin{table}[htb]
 \pgfplotstabletypeset[
-	header = has colnames,
-	col sep = semicolon, 
-	sort, sort key = unc,
-	columns = {nq, xmax, xmin, nvar, unc},
+	header = has colnames,                 % Używaj nagłówka
+	col sep = semicolon,                   % ustaw separator
+	sort, sort key = unc,                  % Załącz sortowanie
+	columns = {nq, xmax, xmin, nvar, unc}, % Lista kolumn
 	columns/nq/.style = {
 		column name = \textbf{$n_q$},
-		dec sep align
+		dec sep align          % Wyrównaj wartości do separatora
 	},
 	columns/xmax/.style = {
 		column name = \textbf{$x_{\max}$, \unit{V}},
-		fixed, fixed zerofill,
-		precision = 2,
+		fixed, fixed zerofill, % Format stałoprzecinkowy, dopełniony
+		precision = 2,         % zerami, dwa miejsca po przecinku
 	},
 	columns/xmin/.style = {
 		column name = \textbf{$x_{\min}$, \unit{V}},
-		fixed, fixed zerofill, 
-		precision = 2,
+		fixed, fixed zerofill, % Format stałoprzecinkowy, dopełniony
+		precision = 2,         % zerami, dwa miejsca po przecinku
 	},
 	columns/nvar/.style = {
 		column name = \textbf{$\sigma_n^2$, \unit{mV^2}},
-		fixed, fixed zerofill, 
-		precision = 1,
-		multiply by = 1000,
+		fixed, fixed zerofill, % Format stałoprzecinkowy, dopełniony
+		precision = 1,         % zerami, jedno miejsce po przecinku
+		multiply by = 1000,    % Pomnóż wartości razy tysiąc
 	},
 	columns/unc/.style = {
 		column name = \textbf{Niepewność, \unit{mV}},
-		fixed, 
-		precision = 0,
-		multiply by = 1000,
+		fixed,                 % Format stałoprzecinkowy, bez zer
+		precision = 0,         % oraz bez części dziesiętnej
+		multiply by = 1000,    % Pomnóż wartości razy tysiąc
 	}
-]{nazwa_pliku_z_danymi}
-\caption{Podpis tabeli}
-\label{nazwa_tabeli}
+]{nazwa_pliku_z_danymi}    % Wczytaj dane z pliku
+\caption{Podpis tabeli}    % Dodaj podpis
+\label{nazwa_tabeli}       % Utwórz etykietę
 \end{table}

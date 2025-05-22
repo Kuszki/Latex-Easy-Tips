@@ -285,6 +285,4 @@
 \delimiterfactor=900
 % --------------------
 
-\usetikzlibrary{external}
-\tikzexternalize
 \flushbottom

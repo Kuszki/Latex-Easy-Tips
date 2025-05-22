@@ -1,18 +1,18 @@
 \begin{table}[htb]
 \csvreader[
-	head to column names,
-	separator = semicolon,
-	tabular = |c|c|c|c|c|,
-	table head = 
-		\hline
-		\textbf{$n_q$}                     & 
-		\textbf{$x_{\max}$, \unit{V}}      & 
-		\textbf{$x_{\min}$, \unit{V}}      & 
-		\textbf{$\sigma_n^2$, \unit{mV^2}} & 
-		\textbf{Niepewność, \unit{mV}}     \\ 
-		\hline,
-	late after line = \\ \hline,
-]{wyniki_eksperymentu.csv}{}{
+	head to column names,  % Załącz przetwarzanie nazw kolumn
+	separator = semicolon, % Ustaw separator kolumn na średnik
+	tabular = |c|c|c|c|c|, % Ustal wyrównanie i linie dla kolumn
+	table head =           % Utwórz nagłówek dla tabeli:
+		\hline                                % Linia pozioma
+		\textbf{$n_q$}                     &  % Kolumna 'nq'
+		\textbf{$x_{\max}$, \unit{V}}      &  % Kolumna 'xmax'
+		\textbf{$x_{\min}$, \unit{V}}      &  % Kolumna 'xmin'
+		\textbf{$\sigma_n^2$, \unit{mV^2}} &  % Kolumna 'nvar'
+		\textbf{Niepewność, \unit{mV}}     \\ % Kolumna 'unc'
+		\hline,                               % Linia pozioma
+	late after line = \\ \hline, % Dodawaj linię po każdym wierszu
+]{wyniki_eksperymentu.csv}{}{  % Wczytuj dane z pliku tekstowego
 	\tablenum[table-format =  4.0, round-precision = 0]{\nq}   & 
 	\tablenum[table-format = +2.2, round-precision = 2]{\xmax} & 
 	\tablenum[table-format = +2.2, round-precision = 2]{\xmin} & 
@@ -21,6 +21,6 @@
 	\tablenum[round-mode = figures, round-precision = 2]
 		{\fpeval{\unc * 1000}}
 }
-\caption{Podpis tabeli}
-\label{nazwa_tabeli}
+\caption{Podpis tabeli}       % Dodaj podpis do tabeli
+\label{nazwa_tabeli}          % Dodaj etykietę tabeli
 \end{table}
