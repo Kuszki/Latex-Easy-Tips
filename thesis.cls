@@ -13,6 +13,7 @@
 \RequirePackage[locale = PL]{siunitx}
 
 \RequirePackage[autostyle]{csquotes}
+\RequirePackage[siunitx]{gnuplottex}
 \RequirePackage[chapter]{tocbibind}
 \RequirePackage[section]{placeins}
 \RequirePackage[noheader]{gitver}

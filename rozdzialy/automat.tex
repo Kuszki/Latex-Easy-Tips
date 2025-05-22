@@ -235,6 +235,21 @@ Alternatywą dla programu \texttt{GNU Octave} może być program \texttt{gnuplot
 
 Dla przedstawionego rysunku wszystkie wprowadzone opisy oraz wartości są bezpośrednio przetwarzane podczas kompilacji, stąd możliwe jest stosowanie dowolnych poleceń zapewnianych przez stosowane w dokumencie biblioteki. Do formatowania wartości etykiet osi wykorzystano bibliotekę \texttt{siunitx}, aby zachować jednolity z pozostałą częścią manuskryptu format. Można zauważyć, że stosowanie \texttt{gnuplot} zapewnia większą jakość wykresów przy mniejszym stopniu skomplikowania ich sporządzania, a także lepiej integruje się ze stosowaniem poleceń \LaTeX{} w porównaniu do stosowania \texttt{GNU Octave}. Wadą tego rozwiązania jest jednak brak bezpośredniej możliwości wykonywania symulacji w tym programie. Istnieje jednak opcja ładowania danych z pliku tekstowego.
 
+Stosując bibliotekę \texttt{gnuplottex} istnieje możliwość automatycznego generowania wykresów programu \texttt{gnuplot} podczas kompilacji dokumentu. Kod źródłowy osadzony być może bezpośrednio w dokumencie, stosując środowisko \texttt{gnuplot} lub ładowany z pliku stosując polecenie \mintinline{latex}{\gnuplotloadfile[terminal = tikz]{nazwa_pliku}}. Ładując bibliotekę wraz z opcją \texttt{siunitx} wszystkie wartości są formatowane z użyciem biblioteki \texttt{siunitx}, stąd nie ma potrzeby ręcznego ich formatowania, co pokazano w listingu~\ref{fig:gnuplot_demo}. W sporządzonym skrypcie nie należy dodatkowo wskazywać terminala oraz pliku wyjściowego. Listing~\ref{lst:gnuplot_embed} umożliwia wstawienie obrazka generowanego przez program \texttt{gnuplot} podczas kompilacji dokumentu, przy czym wygenerowany w ten sposób rysunek jest identyczny, jak rysunek~\ref{fig:gnuplot_demo}.
+
+\begin{listing}[hbt]
+\inputminted{latex}{obrazki/gnuplot_embed.tex}
+\makecaption{lst:gnuplot_embed}{Skrypt programu \texttt{gnuplot} ładowany przez bibliotekę \texttt{gnuplottex}}
+\end{listing}
+
+\begin{figure}[!htb]
+\begin{gnuplot}[terminal = tikz, terminaloptions = {size 15.5, 7}]
+	f(x) = exp(-0.1 * x) * sin(x)
+	plot f(x) title 'Funkcja $f(x)$' lc 'blue'
+\end{gnuplot}
+\makecaption{fig:testxxx}{TEST}
+\end{figure}
+
 Wykresy generować można również bezpośrednio w dokumencie, stosując w tym celu bibliotekę \texttt{pgfplots}. Rozwiązanie to najlepiej integruje się z dokumentem. Wykresy są automatycznie generowane podczas kompilacji, co wyklucza konieczność ręcznego uruchamiania generujących ich skryptów, natomiast wydłuża czas potrzebny do budowy projektu. Wartości osi są formatowane zgodnie z ustawieniami przedstawionymi wcześniej w listingu~\ref{lst:pgfplots_config}. Tworząc wykres stosować można wszystkie funkcje dostępne w dokumencie, stąd wykresy sporządzone w ten sposób cechują się najwyższą jakością. Przykład wykresu, który generowany jest na podstawie listingu~\ref{lst:pgfplots_demo} przedstawia rysunek~\ref{fig:pgfplots_demo}, przy czym osiągnięty efekt jest podobny do tego z rysunku~\ref{fig:gnuplot_demo}.
 
 \begin{listing}[hbt]
