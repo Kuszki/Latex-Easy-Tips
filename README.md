@@ -1,1 +1,11 @@
-# Latex-Easy-Tips
+# Co zrobić, żeby się nie narobić
+
+Kilka wskazówek odnośnie stosowania systemu składu LaTeX oraz innych przydatnych narzędzi i rozwiązań.
+
+## Streszczenie
+
+Pracę poświęcono opisowi wybranych narzędzi informatycznych, przydatnych podczas dokumentacji i realizacji badań naukowych, wykonywaniu sprawozdań oraz przygotowywania manuskryptów. Praca nie jest typową instrukcją stosowania omówionych w niej narzędzi, a jej głównym celem jest uświadomienie czytelnika o ich istnieniu i zachęta do ich stosowania. W pracy omówiono podstawy korzystania z systemu składu LaTeX, zaproponowano w jaki sposób archiwizować wyniki badań i wykorzystywać je do sporządzania treści dokumentu, omówiono w jaki sposób tworzyć spójne ze stylem dokumentu rysunki oraz jak wstawiać do niego fragmenty skryptów. Głównym celem pracy jest popularyzacja stosowania narzędzi, które w opinii autora bardzo ułatwiają codzienną pracę i zwiększają jakość składu tworzonych publikacji. Wszystkie omówione w pracy narzędzia stanowią wolne oprogramowanie, dostępne dla większości systemów operacyjnych i platform sprzętowych.
+
+## Licencja
+
+Niniejsza praca dostępna jest na warunkach licencji [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). Dozwolone jest rozpowszechnianie, modyfikowanie, dostosowywanie niniejszej pracy i tworzenie materiałów na dowolnym nośniku lub w dowolnym formacie, również w zastosowaniach komercyjnych, pod warunkiem wskazania twórcy oryginalnej pracy oraz zachowania identycznych warunków licencji na dzieło pochodne. Praca nie została zrecenzowana i stanowi zbiór osobistych przemyśleń autora.
