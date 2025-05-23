@@ -8,8 +8,8 @@ set ylabel 'Wartości funkcji, \unit{V}' offset -1, 0
 
 set xrange [0:20]                          # Ustaw zakres osi X
 set yrange [-1:1]                          # Ustaw zakres osi Y
-set format y "\\num{%g}"                   # Ustaw format liczb
-set format x "\\num{%g}"                   # stosując 'siunitx'
+set format xy '\num{%g}'                   # Ustaw format liczb
+set key box top right width 3 height 2     # Formatuj legendę
 set grid                                   # Załącz siatkę główną
 
 f(x) = exp(-0.1 * x) * sin(x)              # Przykładowa funkcja

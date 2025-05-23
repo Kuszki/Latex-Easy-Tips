@@ -1,30 +1,30 @@
 \begin{table}[htb]
 \pgfplotstabletypeset[
 	header = has colnames,                 % Używaj nagłówka
-	col sep = semicolon,                   % ustaw separator
+	col sep = semicolon,                   % Ustaw separator
 	sort, sort key = unc,                  % Załącz sortowanie
-	columns = {nq, xmax, xmin, nvar, unc}, % Lista kolumn
-	columns/nq/.style = {
+	columns = {nq, xmax, xmin, nvar, unc}, % Lista używanych kolumn
+	columns/nq/.style = {    % Ustawienia kolumny 'nq'
 		column name = \textbf{$n_q$},
 		dec sep align          % Wyrównaj wartości do separatora
 	},
-	columns/xmax/.style = {
+	columns/xmax/.style = {  % Ustawienia kolumny 'xmax'
 		column name = \textbf{$x_{\max}$, \unit{V}},
 		fixed, fixed zerofill, % Format stałoprzecinkowy, dopełniony
 		precision = 2,         % zerami, dwa miejsca po przecinku
 	},
-	columns/xmin/.style = {
+	columns/xmin/.style = {  % Ustawienia kolumny 'xmin'
 		column name = \textbf{$x_{\min}$, \unit{V}},
 		fixed, fixed zerofill, % Format stałoprzecinkowy, dopełniony
 		precision = 2,         % zerami, dwa miejsca po przecinku
 	},
-	columns/nvar/.style = {
+	columns/nvar/.style = {  % Ustawienia kolumny 'nvar'
 		column name = \textbf{$\sigma_n^2$, \unit{mV^2}},
 		fixed, fixed zerofill, % Format stałoprzecinkowy, dopełniony
 		precision = 1,         % zerami, jedno miejsce po przecinku
 		multiply by = 1000,    % Pomnóż wartości razy tysiąc
 	},
-	columns/unc/.style = {
+	columns/unc/.style = {   % Ustawienia kolumny 'unc'
 		column name = \textbf{Niepewność, \unit{mV}},
 		fixed,                 % Format stałoprzecinkowy, bez zer
 		precision = 0,         % oraz bez części dziesiętnej
