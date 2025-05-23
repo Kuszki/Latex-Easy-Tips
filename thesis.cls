@@ -107,6 +107,7 @@
 
 \floatsetup[table]{style = plain, position = top}
 \floatsetup[figure]{style = plain, position = bottom}
+\floatsetup[listing]{style = plain, position = bottom}
 
 \titleformat{name = \chapter, numberless}[block]{\normalfont\bfseries\huge}{}{0pt}{}
 \titleformat{name = \chapter}[block]{\normalfont\bfseries\huge}{}{0pt}{\thechapter.~}
@@ -134,8 +135,6 @@
 
 \newcommand{\makecaption}[2]{\caption{\label{#1}#2}}
 \newcommand{\emb}[1]{\left(#1\right)}
-
-\newcommand{\githref}[1]{\href{https://github.com/Kuszki/Latex-Easy-Tips/tree/#1}{#1}}
 
 \setlength{\parskip}{12pt plus 5pt minus 2pt}
 \setlength{\floatsep}{16pt plus 3pt minus 3pt}
