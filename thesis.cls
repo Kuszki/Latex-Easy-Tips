@@ -161,10 +161,10 @@
 
 \ifthenelse{\boolean{@twoside}}{
 	\fancyhead[EL]{\nouppercase{\small\leftmark}}
-	\fancyhead[OR]{\nouppercase{Wersja \gitVer{} z \@date}}
+	\fancyhead[OR]{\nouppercase{\small Wersja \gitVer{} z \@date}}
 }{
 	\fancyhead[OL]{\nouppercase{\small\leftmark}}
-	\fancyhead[OR]{\nouppercase{Wersja \gitVer{} z \@date}}
+	\fancyhead[OR]{\nouppercase{\small Wersja \gitVer{} z \@date}}
 }
 
 \def\maketitle
