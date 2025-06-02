@@ -1,6 +1,6 @@
 # Używaj terminala 'tikz' i wyjścia do pliku we wskazanej lokalizacji
 set terminal lua tikz size 15.5, 7         # Rozmiar 15.5x7
-set output '../obrazki/gnuplot_demo.tex'   # Plik wyjściowy
+set output 'obrazki/gnuplot_demo.tex'      # Plik wyjściowy
 
 # Ustawienia opisu osi (offset dodaje margines do opisu osi)
 set xlabel 'Wartości $x$, \unit{\degreeCelsius}' offset 0, -0.5

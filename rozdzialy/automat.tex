@@ -265,6 +265,38 @@ Kompilacja dokumentu zawierającego dużą liczbę obrazków generowanych w jej 
 
 Analizując wady i zalety wszystkich przedstawionych rozwiązań zauważyć można, że program \texttt{GNU Octave} stanowi najprostszą metodę generowania wykresów, przy czym jednocześnie umożliwia prowadzenie symulacji i skomplikowanych obliczeń. Niestety, należy samodzielnie odpowiednio sformatować wykres, aby pasował do reszty dokumentu. Program \texttt{gnuplot} jest wyspecjalizowany w tworzeniu wykresów, a dodatkowo oferuje pewne możliwości obliczeń. Wygenerowane wykresy są spójne z resztą dokumentu, przy minimalnym nakładzie pracy użytkownika. Stosowanie biblioteki \texttt{pgfplots} umożliwia natomiast tworzenie spójnych z resztą dokumentu wykresów bezpośrednio podczas jego kompilacji. Należy zatem samodzielnie podjąć decyzję odnośnie stosowanego narzędzia, wybierając to najbardziej przystępne. Ze względu na duże podobieństwo osiąganych rezultatów, rozwiązania \texttt{gnuplot} oraz \texttt{pgfplots} mogą być stosowane naprzemienne, a co więcej biblioteka \texttt{pgfplots} umożliwia również wstawianie wykresów generowanych bezpośrednio przez program \texttt{gnuplot}.
 
+\section{Generowanie grafów i schematów}
+
+Podobnie jak w przypadku rysunków i wykresów, osadzone w dokumencie grafy i schematy powinny być spójne z resztą dokumentu. Standardowo można w tym celu stosować programy umożliwiające tworzenie grafiki wektorowej, takie jak \texttt{LibreOffice}, \texttt{FreeCAD}, \texttt{AutoCAD}, czy \texttt{Inkscape}. Dobrym pomysłem jest również sporządzanie rysunków w omówionym przy okazji poprzedniego podrozdziału formacie \texttt{TIKZ} za pomocą biblioteki \texttt{pgfplots}, gdzie stosować można kod źródłowy osadzony bezpośrednio w dokumencie lub wczytywany z pliku. Innym ciekawym rozwiązaniem jest również użycie języka opisu grafów \texttt{DOT}, stosowanego w programie \texttt{Graphviz}. W przypadku stosowania zewnętrznych programów, konieczne jest ustalenie w opcjach programu identycznych parametrów czcionki oraz eksport pliku do formatu grafiki wektorowej. Podczas stosowania języka \texttt{DOT} istnieje możliwość konwersji grafu do formatu \texttt{TIKZ}, stąd podobnie, jak w przypadku tworzenia wykresów w programie \texttt{gnuplot}, podczas kompilacji dokumentu grafy tworzone są stosując ustalone w nim formatowanie.
+
+Przykładem grafu wygenerowanego stosując bibliotekę \texttt{pgfplots} jest schemat przedstawiony na rysunku~\ref{fig:pgfplots_graph}, którego kod źródłowy przedstawiono w listingu~\ref{lst:pgfplots_graph}. Rysunek jest generowany na podstawie opisu kolejnych węzłów w trakcie kompilacji dokumentu. Rozmiary węzłów są obliczane automatycznie, natomiast pozycja i odstępy między nimi są ustalone w kodzie źródłowym. Należy zaznaczyć, że dla zamieszczonego przykładu nie utworzono arkusza stylów, co jest opcją bardzo przydatną podczas tworzenia tego typu grafów -- pominięto ją jednak aby zachować możliwie niewielki stopień skomplikowania przykładu.
+
+\begin{listing}[p]
+\inputminted{latex}{obrazki/pgfplots_graph.tex}
+\makecaption{lst:pgfplots_graph}{Skrypt biblioteki \texttt{pgfplots} generujący rysunek~\ref{fig:pgfplots_graph}}
+\end{listing}
+
+\begin{figure}[hbt]
+\includegraphics{obrazki/pgfplots_graph}
+\makecaption{fig:pgfplots_graph}{Schemat wygenerowany stosując bibliotekę \texttt{pgfplots} za pomocą skryptu~\ref{lst:pgfplots_graph}}
+\end{figure}
+
+Alternatywę dla przedstawionego powyżej rozwiązania stanowi stosowanie języka opisu grafów \texttt{DOT}. Stosując bibliotekę \texttt{dot2texi} istnieje możliwość automatycznej kompilacji osadzonych skryptów do formatu \texttt{TIKZ}, dzięki czemu rysunki są ostatecznie przetwarzane podczas budowy dokumentu. Należy zaznaczyć, że biblioteka \texttt{graphviz} oferuje podobną funkcjonalność, z tym że rysunki kompilowane są do formatu \texttt{PS} lub \texttt{PDF}, przez co ich styl nie zawsze integruje się ze stylem dokumentu. Przykładem grafu wygenerowanego stosując język \texttt{DOT} jest schemat przedstawiony na rysunku~\ref{fig:dot_demo}, którego kod źródłowy przedstawiono w listingu~\ref{lst:dot_demo}.
+
+\begin{listing}[htb]
+\inputminted{dot}{skrypty/dot_demo.dot}
+\makecaption{lst:dot_demo}{Skrypt w języku \texttt{DOT} generujący rysunek~\ref{fig:dot_demo}}
+\end{listing}
+
+\begin{figure}[hbt]
+\includegraphics{obrazki/dot_demo}
+\makecaption{fig:dot_demo}{Schemat wygenerowany stosując język \texttt{DOT} za pomocą skryptu~\ref{lst:dot_demo}}
+\end{figure}
+
+Można zauważyć, że przedstawione na rysunkach~\ref{fig:pgfplots_graph} oraz~\ref{fig:dot_demo} grafy bardzo dobrze integrują się ze stylem dokumentu. Generowanie grafów w zaproponowany sposób wymaga jednak sporo wprawy, przy czym stosować można również graficzne edytory. Najważniejszym wnioskiem, który wyciągnąć można z opisanych dotychczas technik tworzenia wykresów i grafów, jest ogromna zaleta stosowania formatu \texttt{TIKZ}. Każde narzędzie, które umożliwia zapis sporządzonego rysunku do tego formatu oraz jednocześnie nie umieszcza wewnątrz eksportu informacji o czcionce, zapewni doskonałą jakość sporządzonego rysunku.
+
+Naturalnie, każde z zaproponowanych narzędzi posiada pewne zalety oraz wady, a co więcej narzędzia te cechują się wysokim progiem wejścia. Należy jednak zauważyć, że w przypadku języka \texttt{DOT} istnieją gotowe narzędzia, które umożliwiają generowanie na przykład diagramów \texttt{UML} dla klas zawartych w kodzie źródłowym lub dla istniejących baz danych. Warto zatem rozważyć ich stosowanie tworząc taką dokumentację.
+
 \section{Kontrola wersji i śledzenie zmian}
 
 Podczas wspólnej pracy z manuskryptem istotna jest możliwość śledzenia zmian wprowadzanych w dokumencie. Działanie to jest możliwe wykorzystując \href{https://www.overleaf.com}{interfejs} dostępny na portalu \texttt{Overleaf}, przy czym jego funkcjonalność jest znacznie ograniczona w darmowej wersji licencji. Istnieje jednak narzędzie \texttt{latexdiff}, które pozwala samodzielnie wygenerować dokument z oznaczonymi zmianami. Przykład użycia tego narzędzia przedstawiono w listingu~\ref{lst:diff_make}.
@@ -274,12 +306,10 @@ Podczas wspólnej pracy z manuskryptem istotna jest możliwość śledzenia zmia
 \makecaption{lst:diff_make}{Skrypt generujący plik z oznaczonymi zmianami}
 \end{listing}
 
-Dla przedstawionego listingu w pierwszej kolejności generowany jest dokument \LaTeX{}, w którym za pomocą odpowiednich poleceń wyszczególnione są różnice pomiędzy plikami \texttt{stary.tex} oraz \texttt{nowy.tex}. Opcja \texttt{--flatten} powoduje, że wszystkie pliki wczytywane poleceniem \mintinline{latex}{\input} są bezpośrednio wklejane do dokumentu. Po wygenerowaniu pliku \texttt{diff.tex} plik ten jest kompilowany stosując narzędzie \texttt{latexmk}. Ostatecznie w katalogu \texttt{budowa} pojawia się plik \texttt{diff.pdf}, zawierający oznaczone zmiany. Narzędzie \texttt{latexdiff} posiada bogate możliwości dostosowania stylu dla oznaczanych zmian, które opisane są w \href{http://mirrors.ctan.org/support/latexdiff/doc/latexdiff-man.pdf}{dokumentacji} projektu.
+Dla przedstawionego listingu w pierwszej kolejności generowany jest dokument \LaTeX{}, w którym za pomocą odpowiednich poleceń wyszczególnione są różnice pomiędzy plikami \texttt{stary.tex} oraz \texttt{nowy.tex}. Opcja \texttt{--flatten} powoduje, że wszystkie pliki wczytywane poleceniem \mintinline{latex}{\input} są bezpośrednio wklejane do dokumentu. Po wygenerowaniu pliku \texttt{diff.tex} plik ten jest kompilowany stosując narzędzie \texttt{latexmk}. Ostatecznie utworzony zostanie plik \texttt{diff.pdf}, zawierający oznaczone zmiany.
+
+Narzędzie \texttt{latexdiff} posiada bogate możliwości dostosowania stylu dla oznaczanych zmian, które opisane są w \href{http://mirrors.ctan.org/support/latexdiff/doc/latexdiff-man.pdf}{dokumentacji} projektu. Konfigurując styl zmian istnieje możliwość na przykład dodania do dokumentu \texttt{PDF} zakładek z oznaczonymi zmianami, a także podświetlania zmian. Poza różnymi stylami oznaczania zmian narzędzie to umożliwia ignorowanie wybranych poleceń i środowisk, a także pozwala na ustalenie w jaki sposób podchodzić do elementów typu tabele, listingi i rysunki. Dodatkowe instrukcje odnośnie stosowania omawianego narzędzia znaleźć można w \href{https://www.overleaf.com/learn/latex/Articles/How_to_use_latexdiff_on_Overleaf}{przewodniku} dostępnym na portalu \texttt{Overleaf}.
 
 Bardzo dobrym pomysłem, nawet w przypadku samodzielnej pracy nad manuskryptem, jest stosowanie systemu kontroli wersji. Najpopularniejsze systemy kontroli wersji to: \texttt{Git}, \texttt{Subversion}, \texttt{Mercurial} oraz \texttt{Perforce}. Narzędzia te umożliwiają śledzenie i zarządzanie zmianami w plikach, w tym w szczególności w plikach tekstowych. Umożliwiają one cofanie się do wcześniejszych wersji, porównywanie zmian oraz pracę wielu osób nad tymi samymi plikami bez konfliktów. Dzięki temu ułatwią one współpracę, testowanie i rozwój projektów. Dla wybranych systemów kontroli wersji dostępne są również komercyjne portale, które umożliwiają między innymi hosting projektów oraz oferują różnego rodzaju pomocne narzędzia. Przykładem takiego portalu jest \texttt{GitHub}, który oferuje bardzo przystępny \href{https://docs.github.com/en/get-started}{samouczek}.
 
 Jeżeli w projekcie stosowany jest system kontroli wersji, to narzędzie \texttt{latexdiff} umożliwia automatyczne generowanie pliku ze zmianami na podstawie numeru rewizji manuskryptu. Przykładowo stosując system kontroli wersji \texttt{Git} dostępna jest wersja omawianego narzędzia o nazwie \texttt{latexdiff-git}, gdzie podczas jego uruchamiania w parametrze \texttt{--revision} wskazywany jest numer rewizji, dla którego ma zostać wygenerowany plik zmian pomiędzy wskazaną, a bieżącą wersją dokumentu. Dodatkowo stosując bibliotekę \texttt{gitver} istnieje możliwość dodania numeru rewizji do treści dokumentu, na przykład w nagłówku strony lub na stronie tytułowej.
-
-\section{Uwagi końcowe}
-
-Przedstawione w niniejszym rozdziale narzędzia i rozwiązania nie są jedynymi możliwymi do stosowania w omawianym celu. Przedstawiono te rozwiązania, o których istnieniu, w opinii autora pracy, warto wiedzieć. Automatyzacja wykonywanych często czynności, mimo że za pierwszym razem jest czasochłonna i miejscami trudna, odwdzięcza się później zaoszczędzonym czasem, stąd warto zainwestować ten czas w jej przeprowadzenie. Naturalnie, nie można również popadać w skrajność i stawać się archetypem informatyka, który to poświęca tydzień na automatyzację zadania, które musi wykonać tylko raz i poświęciłby na nie kilka minut, wykonując je ręcznie.

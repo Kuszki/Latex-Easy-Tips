@@ -1,0 +1,51 @@
+
+\begin{tikzpicture}[>=latex,line join=bevel,]
+  \pgfsetlinewidth{1bp}
+%%
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \pgfsetdash{{3pt}{3pt}}{0pt}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (240.0bp,8.0bp) .. controls (240.0bp,8.0bp) and (404.0bp,8.0bp)  .. (404.0bp,8.0bp) .. controls (410.0bp,8.0bp) and (416.0bp,14.0bp)  .. (416.0bp,20.0bp) .. controls (416.0bp,20.0bp) and (416.0bp,87.0bp)  .. (416.0bp,87.0bp) .. controls (416.0bp,93.0bp) and (410.0bp,99.0bp)  .. (404.0bp,99.0bp) .. controls (404.0bp,99.0bp) and (240.0bp,99.0bp)  .. (240.0bp,99.0bp) .. controls (234.0bp,99.0bp) and (228.0bp,93.0bp)  .. (228.0bp,87.0bp) .. controls (228.0bp,87.0bp) and (228.0bp,20.0bp)  .. (228.0bp,20.0bp) .. controls (228.0bp,14.0bp) and (234.0bp,8.0bp)  .. (240.0bp,8.0bp);
+  \draw (322.0bp,81.5bp) node {\enquote{System on Chip}};
+\end{scope}
+  \pgfsetcolor{black}
+  % Edge: adc -> dsp
+  \draw [->] (290.03bp,34.0bp) .. controls (305.74bp,34.0bp) and (326.0bp,34.0bp)  .. (353.65bp,34.0bp);
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (322.0bp,45.0bp) node {$x(i)$};
+  % Edge: input -> analog
+  \draw [->] (54.033bp,34.0bp) .. controls (69.743bp,34.0bp) and (90.003bp,34.0bp)  .. (117.65bp,34.0bp);
+  \draw (86.0bp,45.0bp) node {$s(t)$};
+  % Edge: analog -> adc
+  \draw [->] (172.03bp,34.0bp) .. controls (187.74bp,34.0bp) and (208.0bp,34.0bp)  .. (235.65bp,34.0bp);
+  \draw (204.0bp,45.0bp) node {$y(t)$};
+  % Edge: dsp -> output
+  \draw [->] (408.2bp,34.0bp) .. controls (424.88bp,34.0bp) and (446.82bp,34.0bp)  .. (475.97bp,34.0bp);
+  \draw (442.0bp,45.0bp) node {$\mathbfit{X}(i)$};
+  % Node: adc
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (278.0bp,52.0bp) .. controls (278.0bp,52.0bp) and (248.0bp,52.0bp)  .. (248.0bp,52.0bp) .. controls (242.0bp,52.0bp) and (236.0bp,46.0bp)  .. (236.0bp,40.0bp) .. controls (236.0bp,40.0bp) and (236.0bp,28.0bp)  .. (236.0bp,28.0bp) .. controls (236.0bp,22.0bp) and (242.0bp,16.0bp)  .. (248.0bp,16.0bp) .. controls (248.0bp,16.0bp) and (278.0bp,16.0bp)  .. (278.0bp,16.0bp) .. controls (284.0bp,16.0bp) and (290.0bp,22.0bp)  .. (290.0bp,28.0bp) .. controls (290.0bp,28.0bp) and (290.0bp,40.0bp)  .. (290.0bp,40.0bp) .. controls (290.0bp,46.0bp) and (284.0bp,52.0bp)  .. (278.0bp,52.0bp);
+  \draw (263.0bp,34.0bp) node {A/C};
+\end{scope}
+  % Node: dsp
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (396.0bp,52.0bp) .. controls (396.0bp,52.0bp) and (366.0bp,52.0bp)  .. (366.0bp,52.0bp) .. controls (360.0bp,52.0bp) and (354.0bp,46.0bp)  .. (354.0bp,40.0bp) .. controls (354.0bp,40.0bp) and (354.0bp,28.0bp)  .. (354.0bp,28.0bp) .. controls (354.0bp,22.0bp) and (360.0bp,16.0bp)  .. (366.0bp,16.0bp) .. controls (366.0bp,16.0bp) and (396.0bp,16.0bp)  .. (396.0bp,16.0bp) .. controls (402.0bp,16.0bp) and (408.0bp,22.0bp)  .. (408.0bp,28.0bp) .. controls (408.0bp,28.0bp) and (408.0bp,40.0bp)  .. (408.0bp,40.0bp) .. controls (408.0bp,46.0bp) and (402.0bp,52.0bp)  .. (396.0bp,52.0bp);
+  \draw (381.0bp,34.0bp) node {DSP};
+\end{scope}
+  % Node: analog
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (160.0bp,52.0bp) .. controls (160.0bp,52.0bp) and (130.0bp,52.0bp)  .. (130.0bp,52.0bp) .. controls (124.0bp,52.0bp) and (118.0bp,46.0bp)  .. (118.0bp,40.0bp) .. controls (118.0bp,40.0bp) and (118.0bp,28.0bp)  .. (118.0bp,28.0bp) .. controls (118.0bp,22.0bp) and (124.0bp,16.0bp)  .. (130.0bp,16.0bp) .. controls (130.0bp,16.0bp) and (160.0bp,16.0bp)  .. (160.0bp,16.0bp) .. controls (166.0bp,16.0bp) and (172.0bp,22.0bp)  .. (172.0bp,28.0bp) .. controls (172.0bp,28.0bp) and (172.0bp,40.0bp)  .. (172.0bp,40.0bp) .. controls (172.0bp,46.0bp) and (166.0bp,52.0bp)  .. (160.0bp,52.0bp);
+  \draw (145.0bp,34.0bp) node {A/A};
+\end{scope}
+%
+\end{tikzpicture}
+

@@ -1,0 +1,21 @@
+digraph {
+	node [shape = box, style = rounded]; // Domyślny styl węzłów
+	rankdir = LR; // Kierunek grafu z lewej do prawej
+
+	input  [style = invis]; // Początek
+	analog [label = "A/A"]; // Węzeł A/A
+	adc    [label = "A/C"]; // Węzeł A/C
+	dsp    [label = "DSP"]; // Węzeł DSP
+	output [style = invis]; // Koniec
+
+	subgraph cluster_soc { adc; dsp;       // Dodatkowy graf
+		texlbl = "\enquote{System on Chip}"; // Treść w LaTeX
+		style = "dashed, rounded";           // Styl grafu
+	}
+
+	// Połączenia między grafami oraz ich etykiety
+	input -> analog [texlbl = "$s(t)$"];
+	analog -> adc   [texlbl = "$y(t)$"];
+	adc -> dsp      [texlbl = "$x(i)$"];
+	dsp -> output   [texlbl = "$\mathbfit{X}(i)$"];
+}

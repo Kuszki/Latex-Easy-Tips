@@ -75,6 +75,7 @@
 }
 
 \usepgfplotslibrary{groupplots, statistics, units, dateplot, external}
+\usetikzlibrary{shapes, positioning, calc, fit, arrows.meta}
 
 \pgfplotsset{
 	compat = newest,
@@ -127,6 +128,8 @@
 \renewcommand\bottomfraction{0.35}
 \renewcommand\textfraction{0.25}
 
+\renewcommand{\bibsetup}{\flushbottom}
+
 \newcommand{\hugelinespacing}{\renewcommand{\baselinestretch}{1.60} \normalsize}
 
 \newcommand{\normallinespacing}{\renewcommand{\baselinestretch}{1.30} \normalsize}
@@ -139,6 +142,8 @@
 \setlength{\parskip}{12pt plus 5pt minus 2pt}
 \setlength{\floatsep}{16pt plus 3pt minus 3pt}
 \setlength{\intextsep}{16pt plus 3pt minus 3pt}
+\setlength{\itemsep}{6pt plus 2pt minus 1pt}
+\setlength{\bibitemsep}{5pt plus 1pt minus 1pt}
 \setlength{\textfloatsep}{16pt plus 3pt minus 3pt}
 \setlength{\abovecaptionskip}{10pt plus 2pt minus 1pt}
 \setlength{\belowcaptionskip}{0pt plus 2pt minus 0pt}

@@ -1,0 +1,36 @@
+\begin{tikzpicture}[
+	every path/.style = { thick }, % Użyj grubej linii
+	every node/.style = {          % Styl węzłów:
+		draw, rounded corners,       % zaokrąglone krawędzie,
+		inner sep = 3.5mm,           % margines wewnętrzny
+		align = center               % wyrównanie do środka
+	},
+	> = { Latex[scale = 1.5] }     % Styl strzałek
+]
+
+\node (analog) % Węzeł A/A
+	{Przetwarzanie \\ analogowe};
+\node (adc)    % Węzeł A/C
+	[anchor = west, xshift = 1.75cm] at ($(analog.east)$)
+	{Przetwarzanie \\ analogowo-cyfrowe};
+\node (dsp)    % Węzeł DSP
+	[anchor = west, xshift = 1.50cm] at ($(adc.east)$)
+	{DSP};
+\node (soc)    % Grupa SOC
+	[draw, thick, dashed, inner sep = 5.5mm, fit=(adc)(dsp), 
+	 label = above:{\enquote{System on Chip}}] {};
+
+\draw[->] ($(analog.west)-(1.25cm, 0)$) -- 
+	node[draw = none, above, near start] {$s(t)$} 
+	(analog.west);
+\draw[->] (analog) -- 
+	node[draw = none, above, at start, xshift = 5.5mm] {$y(t)$} 
+	(adc);
+\draw[->] (adc) -- 
+	node[draw = none, above, at start, xshift = 5.5mm] {$x(i)$} 
+	(dsp);
+\draw[->] (dsp.east) -- 
+	node[draw = none, above, near end] {$\mathbfit{X}(i)$} 
+	($(dsp.east)+(1.75cm, 0)$);
+	
+\end{tikzpicture}
